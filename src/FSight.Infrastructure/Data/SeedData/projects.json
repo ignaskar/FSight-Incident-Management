@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "SP_BackEndTechnologies",
+    "ProjectManagerId": 1,
+    "CreateDate": "2020-10-31",
+    "LastUpdated": "2020-10-31"
+  },
+  {
+    "Name": "SP_FrontEndTechnologies",
+    "ProjectManagerId": 2,
+    "CreateDate": "2020-10-31",
+    "LastUpdated": "2020-10-31"
+  }
+]

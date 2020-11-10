@@ -1,0 +1,14 @@
+[
+  {
+    "DeveloperId": 2,
+    "TicketId": 1,
+    "Body": "Will take a look ASAP",
+    "CreateDate": "2020-10-31"
+  },
+  {
+    "CustomerId": 1,
+    "TicketId": 1,
+    "Body": "Please resolve by tomorrow",
+    "CreateDate": "2020-10-31"
+  }
+]

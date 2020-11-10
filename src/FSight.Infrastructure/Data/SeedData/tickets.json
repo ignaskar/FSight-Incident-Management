@@ -1,0 +1,44 @@
+[
+  {
+    "Number": "TCK-25412",
+    "Title": "'Search' feature doesn't work",
+    "Description": "'Search' feature has stopped working after latest update. Tried clearing browser cache and cookies - did not help.",
+    "State": 2,
+    "Priority": 2,
+    "Type": 0,
+    "Comments": [],
+    "UpdatedBy": 3,
+    "CreateDate": "2020-10-31",
+    "LastUpdated": "2020-10-31",
+    "DeveloperId": 3,
+    "CustomerId": 1
+  },
+  {
+    "Number": "TCK-00554",
+    "Title": "Please add capability to share status of other users",
+    "Description": "I think this would greatly increase collaboration between platform users.",
+    "State": 1,
+    "Priority": 0,
+    "Type": 2,
+    "Comments": [],
+    "UpdatedBy": 4,
+    "CreateDate": "2020-10-31",
+    "LastUpdated": "2020-10-31",
+    "DeveloperId": 5,
+    "CustomerId": 1
+  },
+  {
+    "Number": "TCK-54780",
+    "Title": "Error received when navigating to 'Dashboard' page",
+    "Description": "ArgumentNullException is thrown when I try to navigate to my dashboard. Please fix!!!",
+    "State": 3,
+    "Priority": 1,
+    "Type": 1,
+    "Comments": [],
+    "UpdatedBy": 2,
+    "CreateDate": "2020-10-31",
+    "LastUpdated": "2020-10-31",
+    "DeveloperId": 2,
+    "CustomerId": 2
+  }
+]
