@@ -17,8 +17,8 @@ namespace FSight.Infrastructure.Data.Migrations
                     FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2020, 11, 10, 9, 9, 55, 351, DateTimeKind.Utc).AddTicks(7460)),
-                    LastUpdated = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2020, 11, 10, 9, 9, 55, 358, DateTimeKind.Utc).AddTicks(4450))
+                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2020, 11, 10, 14, 41, 39, 1, DateTimeKind.Utc).AddTicks(3630)),
+                    LastUpdated = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2020, 11, 10, 14, 41, 39, 8, DateTimeKind.Utc).AddTicks(780))
                 },
                 constraints: table =>
                 {
@@ -36,8 +36,8 @@ namespace FSight.Infrastructure.Data.Migrations
                     FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2020, 11, 10, 9, 9, 55, 360, DateTimeKind.Utc).AddTicks(3940)),
-                    LastUpdated = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2020, 11, 10, 9, 9, 55, 360, DateTimeKind.Utc).AddTicks(4250))
+                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2020, 11, 10, 14, 41, 39, 9, DateTimeKind.Utc).AddTicks(6880)),
+                    LastUpdated = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2020, 11, 10, 14, 41, 39, 9, DateTimeKind.Utc).AddTicks(7140))
                 },
                 constraints: table =>
                 {
@@ -78,8 +78,8 @@ namespace FSight.Infrastructure.Data.Migrations
                     FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2020, 11, 10, 9, 9, 55, 359, DateTimeKind.Utc).AddTicks(4960)),
-                    LastUpdated = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2020, 11, 10, 9, 9, 55, 359, DateTimeKind.Utc).AddTicks(5740))
+                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2020, 11, 10, 14, 41, 39, 9, DateTimeKind.Utc).AddTicks(1180)),
+                    LastUpdated = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2020, 11, 10, 14, 41, 39, 9, DateTimeKind.Utc).AddTicks(1950))
                 },
                 constraints: table =>
                 {
@@ -134,11 +134,11 @@ namespace FSight.Infrastructure.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TicketId = table.Column<int>(type: "int", nullable: false),
-                    Body = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CustomerId = table.Column<int>(type: "int", nullable: true),
                     DeveloperId = table.Column<int>(type: "int", nullable: true),
-                    ProjectManagerId = table.Column<int>(type: "int", nullable: true)
+                    ProjectManagerId = table.Column<int>(type: "int", nullable: true),
+                    CustomerId = table.Column<int>(type: "int", nullable: true),
+                    Body = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {

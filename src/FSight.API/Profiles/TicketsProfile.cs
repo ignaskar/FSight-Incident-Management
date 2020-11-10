@@ -10,13 +10,15 @@ namespace FSight.API.Profiles
     {
         public TicketsProfile()
         {
-            CreateMap<Ticket, TicketToReturnDto>()
+            CreateMap<Ticket, TicketDto>()
                 .ForMember(dest => dest.Assignee,
                     opt => opt.MapFrom(src => src.Developer))
                 .ForMember(dest => dest.Submitter,
-                    opt => opt.MapFrom(src => src.Customer))
-                .ForMember(dest => dest.Category,
-                    opt => opt.MapFrom(src => Enum.GetName(typeof(TicketCategory), src.Category)));
+                    opt => opt.MapFrom(src => src.Customer));
+
+            CreateMap<TicketForCreationDto, Ticket>()
+                .ForMember(dest => dest.CustomerId,
+                    opt => opt.MapFrom(src => src.SubmitterId));
         }
     }
 }

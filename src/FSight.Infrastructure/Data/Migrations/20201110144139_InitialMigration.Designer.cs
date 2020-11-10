@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FSight.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(FSightContext))]
-    [Migration("20201110090955_InitialMigration")]
+    [Migration("20201110144139_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -69,7 +69,7 @@ namespace FSight.Infrastructure.Data.Migrations
                     b.Property<DateTime>("CreateDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2020, 11, 10, 9, 9, 55, 351, DateTimeKind.Utc).AddTicks(7460));
+                        .HasDefaultValue(new DateTime(2020, 11, 10, 14, 41, 39, 1, DateTimeKind.Utc).AddTicks(3630));
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -89,7 +89,7 @@ namespace FSight.Infrastructure.Data.Migrations
                     b.Property<DateTime>("LastUpdated")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2020, 11, 10, 9, 9, 55, 358, DateTimeKind.Utc).AddTicks(4450));
+                        .HasDefaultValue(new DateTime(2020, 11, 10, 14, 41, 39, 8, DateTimeKind.Utc).AddTicks(780));
 
                     b.Property<int>("Type")
                         .ValueGeneratedOnAdd()
@@ -111,7 +111,7 @@ namespace FSight.Infrastructure.Data.Migrations
                     b.Property<DateTime>("CreateDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2020, 11, 10, 9, 9, 55, 359, DateTimeKind.Utc).AddTicks(4960));
+                        .HasDefaultValue(new DateTime(2020, 11, 10, 14, 41, 39, 9, DateTimeKind.Utc).AddTicks(1180));
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -134,7 +134,7 @@ namespace FSight.Infrastructure.Data.Migrations
                     b.Property<DateTime>("LastUpdated")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2020, 11, 10, 9, 9, 55, 359, DateTimeKind.Utc).AddTicks(5740));
+                        .HasDefaultValue(new DateTime(2020, 11, 10, 14, 41, 39, 9, DateTimeKind.Utc).AddTicks(1950));
 
                     b.Property<int?>("ProjectId")
                         .HasColumnType("int");
@@ -188,7 +188,7 @@ namespace FSight.Infrastructure.Data.Migrations
                     b.Property<DateTime>("CreateDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2020, 11, 10, 9, 9, 55, 360, DateTimeKind.Utc).AddTicks(3940));
+                        .HasDefaultValue(new DateTime(2020, 11, 10, 14, 41, 39, 9, DateTimeKind.Utc).AddTicks(6880));
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -211,7 +211,7 @@ namespace FSight.Infrastructure.Data.Migrations
                     b.Property<DateTime>("LastUpdated")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2020, 11, 10, 9, 9, 55, 360, DateTimeKind.Utc).AddTicks(4250));
+                        .HasDefaultValue(new DateTime(2020, 11, 10, 14, 41, 39, 9, DateTimeKind.Utc).AddTicks(7140));
 
                     b.Property<int>("Type")
                         .ValueGeneratedOnAdd()
@@ -274,23 +274,31 @@ namespace FSight.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("FSight.Core.Entities.Comment", b =>
                 {
-                    b.HasOne("FSight.Core.Entities.Customer", null)
+                    b.HasOne("FSight.Core.Entities.Customer", "Customer")
                         .WithMany("Comments")
                         .HasForeignKey("CustomerId");
 
-                    b.HasOne("FSight.Core.Entities.Developer", null)
+                    b.HasOne("FSight.Core.Entities.Developer", "Developer")
                         .WithMany("Comments")
                         .HasForeignKey("DeveloperId");
 
-                    b.HasOne("FSight.Core.Entities.ProjectManager", null)
+                    b.HasOne("FSight.Core.Entities.ProjectManager", "ProjectManager")
                         .WithMany("Comments")
                         .HasForeignKey("ProjectManagerId");
 
-                    b.HasOne("FSight.Core.Entities.Ticket", null)
+                    b.HasOne("FSight.Core.Entities.Ticket", "Ticket")
                         .WithMany("Comments")
                         .HasForeignKey("TicketId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("Developer");
+
+                    b.Navigation("ProjectManager");
+
+                    b.Navigation("Ticket");
                 });
 
             modelBuilder.Entity("FSight.Core.Entities.Developer", b =>

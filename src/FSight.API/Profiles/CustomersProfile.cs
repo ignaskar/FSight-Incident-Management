@@ -8,7 +8,8 @@ namespace FSight.API.Profiles
     {
         public CustomersProfile()
         {
-            CreateMap<Customer, CustomerToReturnDto>();
+            CreateMap<Customer, CustomerDto>();
+            CreateMap<CustomerDto, Customer>();
         }
     }
 }

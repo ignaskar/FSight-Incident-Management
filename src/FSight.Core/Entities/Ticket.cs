@@ -12,11 +12,11 @@ namespace FSight.Core.Entities
         public TicketState State { get; set; }
         public TicketPriority Priority { get; set; }
         public TicketCategory Category { get; set; }
-        public ICollection<Comment> Comments { get; set; }
+        public ICollection<Comment> Comments { get; set; } = new List<Comment>();
         public Developer Developer { get; set; }
         public Customer Customer { get; set; }
         public int CustomerId { get; set; }
-        public int DeveloperId { get; set; }
+        public int? DeveloperId { get; set; }
         public int UpdatedBy { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime LastUpdated { get; set; }

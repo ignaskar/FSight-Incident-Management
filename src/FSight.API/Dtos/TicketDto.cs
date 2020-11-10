@@ -3,7 +3,7 @@ using FSight.Core.Enums;
 
 namespace FSight.API.Dtos
 {
-    public class TicketToReturnDto
+    public class TicketDto
     {
         public int Id { get; set; }
         public string Number { get; set; }
@@ -12,8 +12,8 @@ namespace FSight.API.Dtos
         public string State { get; set; }
         public string Priority { get; set; }
         public string Category { get; set; }
-        public ICollection<CommentToReturnDto> Comments { get; set; }
-        public DeveloperToReturnDto Assignee { get; set; }
-        public CustomerToReturnDto Submitter { get; set; }
+        public ICollection<CommentDto> Comments { get; set; } = new List<CommentDto>();
+        public DeveloperDto Assignee { get; set; }
+        public CustomerDto Submitter { get; set; }
     }
 }

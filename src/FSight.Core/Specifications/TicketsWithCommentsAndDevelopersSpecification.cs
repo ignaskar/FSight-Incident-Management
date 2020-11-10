@@ -40,6 +40,7 @@ namespace FSight.Core.Specifications
         {
             AddInclude(x => x.Comments);
             AddInclude(x => x.Developer);
+            AddInclude(x => x.Customer);
         }
     }
 }

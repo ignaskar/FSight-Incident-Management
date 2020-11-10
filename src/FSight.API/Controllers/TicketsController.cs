@@ -7,6 +7,7 @@ using FSight.API.Helpers;
 using FSight.Core.Entities;
 using FSight.Core.Interfaces;
 using FSight.Core.Specifications;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FSight.API.Controllers
@@ -27,7 +28,9 @@ namespace FSight.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<Pagination<TicketToReturnDto>>> GetTickets(
+        [HttpHead]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<Pagination<TicketDto>>> GetTickets(
             [FromQuery] TicketSpecParams parameters)
         {
             var spec = new TicketsWithCommentsDevelopersAndCustomersSpecification(parameters);
@@ -38,9 +41,38 @@ namespace FSight.API.Controllers
             
             var tickets = await _unitOfWork.Repository<Ticket>().ListAsync(spec);
             
-            var data = _mapper.Map<IReadOnlyList<Ticket>, IReadOnlyList<TicketToReturnDto>>(tickets);
+            var data = _mapper.Map<IReadOnlyList<Ticket>, IReadOnlyList<TicketDto>>(tickets);
 
-            return Ok(new Pagination<TicketToReturnDto>(parameters.PageIndex, parameters.PageSize, totalItems, data));
+            return Ok(new Pagination<TicketDto>(parameters.PageIndex, parameters.PageSize, totalItems, data));
+        }
+
+        [HttpGet("{ticketId}", Name = "GetTicket")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(TicketDto), StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<TicketDto>> GetTicket(int ticketId)
+        {
+            var spec = new TicketsWithCommentsDevelopersAndCustomersSpecification(ticketId);
+
+            var ticket = await _unitOfWork.Repository<Ticket>().GetEntityWithSpecification(spec);
+
+            if (ticket == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(_mapper.Map<Ticket, TicketDto>(ticket));
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<TicketDto>> CreateTicket(TicketForCreationDto ticket)
+        {
+            var ticketEntity = _mapper.Map<Ticket>(ticket);
+            _unitOfWork.Repository<Ticket>().Add(ticketEntity);
+
+            await _unitOfWork.Complete();
+
+            var ticketToReturn = _mapper.Map<TicketDto>(ticketEntity);
+            return CreatedAtRoute("GetTicket", new {ticketId = ticketToReturn.Id}, ticketToReturn);
         }
     }
 }

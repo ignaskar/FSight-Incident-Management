@@ -8,7 +8,7 @@ namespace FSight.API.Profiles
     {
         public DevelopersProfile()
         {
-            CreateMap<Developer, DeveloperToReturnDto>();
+            CreateMap<Developer, DeveloperDto>();
         }
     }
 }

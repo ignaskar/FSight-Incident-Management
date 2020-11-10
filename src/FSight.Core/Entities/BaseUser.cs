@@ -10,7 +10,7 @@ namespace FSight.Core.Entities
         public string LastName { get; set; }
         public string Email { get; set; }
         public virtual UserType Type { get; set; }
-        public ICollection<Comment> Comments { get; set; }
+        public ICollection<Comment> Comments { get; set; } = new List<Comment>();
         public DateTime CreateDate { get; set; }
         public DateTime LastUpdated { get; set; }
     }
