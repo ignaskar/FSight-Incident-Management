@@ -1,0 +1,10 @@
+namespace FSight.API.Dtos
+{
+    public class CustomerToReturnDto
+    {
+        public int Id { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
+    }
+}

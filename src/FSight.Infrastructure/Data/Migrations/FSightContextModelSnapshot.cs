@@ -3,6 +3,7 @@ using System;
 using FSight.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FSight.Infrastructure.Data.Migrations
@@ -14,31 +15,34 @@ namespace FSight.Infrastructure.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .UseIdentityColumns()
+                .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.0-rc.2.20475.6");
 
             modelBuilder.Entity("FSight.Core.Entities.Comment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
 
                     b.Property<string>("Body")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreateDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime2");
 
                     b.Property<int?>("CustomerId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int?>("DeveloperId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int?>("ProjectManagerId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int>("TicketId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -57,36 +61,37 @@ namespace FSight.Infrastructure.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
 
                     b.Property<DateTime>("CreateDate")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT")
-                        .HasDefaultValueSql("GETUTCDATE()");
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2020, 11, 10, 9, 9, 55, 351, DateTimeKind.Utc).AddTicks(7460));
 
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<DateTime>("LastUpdated")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT")
-                        .HasDefaultValueSql("GETUTCDATE()");
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2020, 11, 10, 9, 9, 55, 358, DateTimeKind.Utc).AddTicks(4450));
 
                     b.Property<int>("Type")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER")
+                        .HasColumnType("int")
                         .HasDefaultValue(0);
 
                     b.HasKey("Id");
@@ -98,42 +103,43 @@ namespace FSight.Infrastructure.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
 
                     b.Property<DateTime>("CreateDate")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT")
-                        .HasDefaultValueSql("GETUTCDATE()");
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2020, 11, 10, 9, 9, 55, 359, DateTimeKind.Utc).AddTicks(4960));
 
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("EmployeeNumber")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<DateTime>("LastUpdated")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT")
-                        .HasDefaultValueSql("GETUTCDATE()");
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2020, 11, 10, 9, 9, 55, 359, DateTimeKind.Utc).AddTicks(5740));
 
                     b.Property<int?>("ProjectId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int>("Type")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER")
+                        .HasColumnType("int")
                         .HasDefaultValue(1);
 
                     b.HasKey("Id");
@@ -147,19 +153,20 @@ namespace FSight.Infrastructure.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
 
                     b.Property<DateTime>("CreateDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("LastUpdated")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ProjectManagerId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -173,39 +180,40 @@ namespace FSight.Infrastructure.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
 
                     b.Property<DateTime>("CreateDate")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT")
-                        .HasDefaultValueSql("GETUTCDATE()");
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2020, 11, 10, 9, 9, 55, 360, DateTimeKind.Utc).AddTicks(3940));
 
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("EmployeeNumber")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<DateTime>("LastUpdated")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT")
-                        .HasDefaultValueSql("GETUTCDATE()");
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2020, 11, 10, 9, 9, 55, 360, DateTimeKind.Utc).AddTicks(4250));
 
                     b.Property<int>("Type")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER")
+                        .HasColumnType("int")
                         .HasDefaultValue(2);
 
                     b.HasKey("Id");
@@ -217,40 +225,41 @@ namespace FSight.Infrastructure.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
 
                     b.Property<int>("Category")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreateDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime2");
 
-                    b.Property<int?>("CustomerId")
-                        .HasColumnType("INTEGER");
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("DeveloperId")
-                        .HasColumnType("INTEGER");
+                    b.Property<int>("DeveloperId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("LastUpdated")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Number")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Priority")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int>("State")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("UpdatedBy")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -302,13 +311,21 @@ namespace FSight.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("FSight.Core.Entities.Ticket", b =>
                 {
-                    b.HasOne("FSight.Core.Entities.Customer", null)
+                    b.HasOne("FSight.Core.Entities.Customer", "Customer")
                         .WithMany("Tickets")
-                        .HasForeignKey("CustomerId");
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("FSight.Core.Entities.Developer", null)
+                    b.HasOne("FSight.Core.Entities.Developer", "Developer")
                         .WithMany("Tickets")
-                        .HasForeignKey("DeveloperId");
+                        .HasForeignKey("DeveloperId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("Developer");
                 });
 
             modelBuilder.Entity("FSight.Core.Entities.Customer", b =>

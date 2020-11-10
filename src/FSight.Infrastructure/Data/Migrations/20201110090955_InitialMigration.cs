@@ -11,14 +11,14 @@ namespace FSight.Infrastructure.Data.Migrations
                 name: "Customers",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Type = table.Column<int>(type: "INTEGER", nullable: false, defaultValue: 0),
-                    FirstName = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
-                    LastName = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
-                    Email = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
-                    CreateDate = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValueSql: "GETUTCDATE()"),
-                    LastUpdated = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValueSql: "GETUTCDATE()")
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Type = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2020, 11, 10, 9, 9, 55, 351, DateTimeKind.Utc).AddTicks(7460)),
+                    LastUpdated = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2020, 11, 10, 9, 9, 55, 358, DateTimeKind.Utc).AddTicks(4450))
                 },
                 constraints: table =>
                 {
@@ -29,15 +29,15 @@ namespace FSight.Infrastructure.Data.Migrations
                 name: "ProjectManagers",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    EmployeeNumber = table.Column<string>(type: "TEXT", nullable: true),
-                    Type = table.Column<int>(type: "INTEGER", nullable: false, defaultValue: 2),
-                    FirstName = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
-                    LastName = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
-                    Email = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
-                    CreateDate = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValueSql: "GETUTCDATE()"),
-                    LastUpdated = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValueSql: "GETUTCDATE()")
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EmployeeNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Type = table.Column<int>(type: "int", nullable: false, defaultValue: 2),
+                    FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2020, 11, 10, 9, 9, 55, 360, DateTimeKind.Utc).AddTicks(3940)),
+                    LastUpdated = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2020, 11, 10, 9, 9, 55, 360, DateTimeKind.Utc).AddTicks(4250))
                 },
                 constraints: table =>
                 {
@@ -48,12 +48,12 @@ namespace FSight.Infrastructure.Data.Migrations
                 name: "Projects",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
-                    ProjectManagerId = table.Column<int>(type: "INTEGER", nullable: false),
-                    CreateDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    LastUpdated = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProjectManagerId = table.Column<int>(type: "int", nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastUpdated = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -70,16 +70,16 @@ namespace FSight.Infrastructure.Data.Migrations
                 name: "Developers",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    EmployeeNumber = table.Column<string>(type: "TEXT", nullable: true),
-                    Type = table.Column<int>(type: "INTEGER", nullable: false, defaultValue: 1),
-                    ProjectId = table.Column<int>(type: "INTEGER", nullable: true),
-                    FirstName = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
-                    LastName = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
-                    Email = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
-                    CreateDate = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValueSql: "GETUTCDATE()"),
-                    LastUpdated = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValueSql: "GETUTCDATE()")
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EmployeeNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Type = table.Column<int>(type: "int", nullable: false, defaultValue: 1),
+                    ProjectId = table.Column<int>(type: "int", nullable: true),
+                    FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2020, 11, 10, 9, 9, 55, 359, DateTimeKind.Utc).AddTicks(4960)),
+                    LastUpdated = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2020, 11, 10, 9, 9, 55, 359, DateTimeKind.Utc).AddTicks(5740))
                 },
                 constraints: table =>
                 {
@@ -96,19 +96,19 @@ namespace FSight.Infrastructure.Data.Migrations
                 name: "Tickets",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Number = table.Column<string>(type: "TEXT", nullable: true),
-                    Title = table.Column<string>(type: "TEXT", nullable: true),
-                    Description = table.Column<string>(type: "TEXT", nullable: true),
-                    State = table.Column<int>(type: "INTEGER", nullable: false),
-                    Priority = table.Column<int>(type: "INTEGER", nullable: false),
-                    Category = table.Column<int>(type: "INTEGER", nullable: false),
-                    UpdatedBy = table.Column<int>(type: "INTEGER", nullable: false),
-                    CreateDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    LastUpdated = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    CustomerId = table.Column<int>(type: "INTEGER", nullable: true),
-                    DeveloperId = table.Column<int>(type: "INTEGER", nullable: true)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Number = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    State = table.Column<int>(type: "int", nullable: false),
+                    Priority = table.Column<int>(type: "int", nullable: false),
+                    Category = table.Column<int>(type: "int", nullable: false),
+                    CustomerId = table.Column<int>(type: "int", nullable: false),
+                    DeveloperId = table.Column<int>(type: "int", nullable: false),
+                    UpdatedBy = table.Column<int>(type: "int", nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastUpdated = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -118,27 +118,27 @@ namespace FSight.Infrastructure.Data.Migrations
                         column: x => x.CustomerId,
                         principalTable: "Customers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Tickets_Developers_DeveloperId",
                         column: x => x.DeveloperId,
                         principalTable: "Developers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Comments",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    TicketId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Body = table.Column<string>(type: "TEXT", nullable: true),
-                    CreateDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    CustomerId = table.Column<int>(type: "INTEGER", nullable: true),
-                    DeveloperId = table.Column<int>(type: "INTEGER", nullable: true),
-                    ProjectManagerId = table.Column<int>(type: "INTEGER", nullable: true)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TicketId = table.Column<int>(type: "int", nullable: false),
+                    Body = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CustomerId = table.Column<int>(type: "int", nullable: true),
+                    DeveloperId = table.Column<int>(type: "int", nullable: true),
+                    ProjectManagerId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {

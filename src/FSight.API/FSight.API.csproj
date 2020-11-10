@@ -1,10 +1,12 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
-    </PropertyGroup>
+        <UserSecretsId>adac732e-5f75-4b52-82d9-19d5a5d8b4ae</UserSecretsId>
+  </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.0-rc.2.20475.6">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
