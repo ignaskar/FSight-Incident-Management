@@ -19,9 +19,9 @@ namespace FSight.Infrastructure.Data
         public DbSet<Ticket> Tickets { get; set; }
         public DbSet<Project> Projects { get; set; }
         
-        // public DbSet<ProjectManager> ProjectManagers { get; set; }
-        // public DbSet<Developer> Developers { get; set; }
-        // public DbSet<Customer> Customers { get; set; }
+        public DbSet<ProjectManager> ProjectManagers { get; set; }
+        public DbSet<Developer> Developers { get; set; }
+        public DbSet<Customer> Customers { get; set; }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

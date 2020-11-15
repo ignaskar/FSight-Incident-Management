@@ -29,8 +29,8 @@ namespace FSight.Infrastructure.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2020, 11, 15, 22, 7, 23, 126, DateTimeKind.Utc).AddTicks(4450)),
-                    LastUpdated = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2020, 11, 15, 22, 7, 23, 129, DateTimeKind.Utc).AddTicks(6050))
+                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2020, 11, 15, 22, 19, 48, 568, DateTimeKind.Utc).AddTicks(7710)),
+                    LastUpdated = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2020, 11, 15, 22, 19, 48, 571, DateTimeKind.Utc).AddTicks(4080))
                 },
                 constraints: table =>
                 {
@@ -46,8 +46,8 @@ namespace FSight.Infrastructure.Data.Migrations
                     EmployeeNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2020, 11, 15, 22, 7, 23, 130, DateTimeKind.Utc).AddTicks(3190)),
-                    LastUpdated = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2020, 11, 15, 22, 7, 23, 130, DateTimeKind.Utc).AddTicks(3490))
+                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2020, 11, 15, 22, 19, 48, 572, DateTimeKind.Utc).AddTicks(1650)),
+                    LastUpdated = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2020, 11, 15, 22, 19, 48, 572, DateTimeKind.Utc).AddTicks(1920))
                 },
                 constraints: table =>
                 {
@@ -107,8 +107,8 @@ namespace FSight.Infrastructure.Data.Migrations
                     EmployeeNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2020, 11, 15, 22, 7, 23, 129, DateTimeKind.Utc).AddTicks(9670)),
-                    LastUpdated = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2020, 11, 15, 22, 7, 23, 130, DateTimeKind.Utc).AddTicks(20))
+                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2020, 11, 15, 22, 19, 48, 571, DateTimeKind.Utc).AddTicks(8190)),
+                    LastUpdated = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2020, 11, 15, 22, 19, 48, 571, DateTimeKind.Utc).AddTicks(8550))
                 },
                 constraints: table =>
                 {

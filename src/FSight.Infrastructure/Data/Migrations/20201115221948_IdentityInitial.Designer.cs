@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FSight.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(FSightContext))]
-    [Migration("20201115220723_IdentityInitial")]
+    [Migration("20201115221948_IdentityInitial")]
     partial class IdentityInitial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -69,7 +69,7 @@ namespace FSight.Infrastructure.Data.Migrations
                     b.Property<DateTime>("CreateDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2020, 11, 15, 22, 7, 23, 126, DateTimeKind.Utc).AddTicks(4450));
+                        .HasDefaultValue(new DateTime(2020, 11, 15, 22, 19, 48, 568, DateTimeKind.Utc).AddTicks(7710));
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -84,7 +84,7 @@ namespace FSight.Infrastructure.Data.Migrations
                     b.Property<DateTime>("LastUpdated")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2020, 11, 15, 22, 7, 23, 129, DateTimeKind.Utc).AddTicks(6050));
+                        .HasDefaultValue(new DateTime(2020, 11, 15, 22, 19, 48, 571, DateTimeKind.Utc).AddTicks(4080));
 
                     b.HasKey("Id");
 
@@ -101,7 +101,7 @@ namespace FSight.Infrastructure.Data.Migrations
                     b.Property<DateTime>("CreateDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2020, 11, 15, 22, 7, 23, 129, DateTimeKind.Utc).AddTicks(9670));
+                        .HasDefaultValue(new DateTime(2020, 11, 15, 22, 19, 48, 571, DateTimeKind.Utc).AddTicks(8190));
 
                     b.Property<string>("EmployeeNumber")
                         .HasColumnType("nvarchar(max)");
@@ -119,7 +119,7 @@ namespace FSight.Infrastructure.Data.Migrations
                     b.Property<DateTime>("LastUpdated")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2020, 11, 15, 22, 7, 23, 130, DateTimeKind.Utc).AddTicks(20));
+                        .HasDefaultValue(new DateTime(2020, 11, 15, 22, 19, 48, 571, DateTimeKind.Utc).AddTicks(8550));
 
                     b.Property<int>("ProjectId")
                         .HasColumnType("int");
@@ -288,7 +288,7 @@ namespace FSight.Infrastructure.Data.Migrations
                     b.Property<DateTime>("CreateDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2020, 11, 15, 22, 7, 23, 130, DateTimeKind.Utc).AddTicks(3190));
+                        .HasDefaultValue(new DateTime(2020, 11, 15, 22, 19, 48, 572, DateTimeKind.Utc).AddTicks(1650));
 
                     b.Property<string>("EmployeeNumber")
                         .HasColumnType("nvarchar(max)");
@@ -306,7 +306,7 @@ namespace FSight.Infrastructure.Data.Migrations
                     b.Property<DateTime>("LastUpdated")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2020, 11, 15, 22, 7, 23, 130, DateTimeKind.Utc).AddTicks(3490));
+                        .HasDefaultValue(new DateTime(2020, 11, 15, 22, 19, 48, 572, DateTimeKind.Utc).AddTicks(1920));
 
                     b.HasKey("Id");
 

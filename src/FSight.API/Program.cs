@@ -26,7 +26,7 @@ namespace FSight.API
                 {
                     var context = services.GetRequiredService<FSightContext>();
                     await context.Database.MigrateAsync();
-                    //await FSightContextSeed.SeedAsync(context, loggerFactory);
+                    await FSightContextSeed.SeedAsync(context, loggerFactory);
                 }
                 catch (Exception ex)
                 {
