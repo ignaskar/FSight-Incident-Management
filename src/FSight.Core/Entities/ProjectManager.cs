@@ -8,6 +8,5 @@ namespace FSight.Core.Entities
         public Project Project { get; set; }
         public virtual AppUser User { get; set; }
         public string EmployeeNumber { get; set; }
-        public override UserType Type => UserType.ProjectManager;
     }
 }

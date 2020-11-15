@@ -8,6 +8,5 @@ namespace FSight.Core.Entities
     {
         public ICollection<Ticket> Tickets { get; set; } = new List<Ticket>();
         public virtual AppUser User { get; set; }
-        public override UserType Type => UserType.Customer;
     }
 }

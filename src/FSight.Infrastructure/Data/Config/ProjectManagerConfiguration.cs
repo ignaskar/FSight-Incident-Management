@@ -10,7 +10,6 @@ namespace FSight.Infrastructure.Data.Config
         public override void Configure(EntityTypeBuilder<ProjectManager> builder)
         {
             base.Configure(builder);
-            builder.Property(x => x.Type).HasDefaultValue(UserType.ProjectManager);
             builder.ToTable("ProjectManagers");
         }
     }

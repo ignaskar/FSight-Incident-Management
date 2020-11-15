@@ -15,20 +15,6 @@ namespace FSight.Infrastructure.Data
         {
             try
             {
-                if (!context.ProjectManagers.Any())
-                {
-                    var projectManagerData =
-                        File.ReadAllText("../FSight.Infrastructure/Data/SeedData/projectManagers.json");
-                    var projectManagers = JsonSerializer.Deserialize<List<ProjectManager>>(projectManagerData);
-
-                    foreach (var item in projectManagers)
-                    {
-                        context.ProjectManagers.Add(item);
-                    }
-
-                    await context.SaveChangesAsync();
-                }
-                
                 if (!context.Projects.Any())
                 {
                     var projectData = File.ReadAllText("../FSight.Infrastructure/Data/SeedData/projects.json");
@@ -43,37 +29,6 @@ namespace FSight.Infrastructure.Data
 
                     await context.SaveChangesAsync();
                 }
-                if (!context.Developers.Any())
-                {
-                    var devData = File.ReadAllText("../FSight.Infrastructure/Data/SeedData/developers.json");
-                    var developers = JsonSerializer.Deserialize<List<Developer>>(devData);
-
-                    foreach (var item in developers)
-                    {
-                        context.Developers.Add(item);
-                        // context.ChangeTracker.TrackGraph(item, node =>
-                        //     node.Entry.State = !node.Entry.IsKeySet ? EntityState.Added : EntityState.Unchanged);
-                    }
-
-                    await context.SaveChangesAsync();
-                }
-
-                
-                if (!context.Customers.Any())
-                {
-                    var customerData =
-                        File.ReadAllText("../FSight.Infrastructure/Data/SeedData/customers.json");
-                    var customers = JsonSerializer.Deserialize<List<Customer>>(customerData);
-                    
-                    foreach (var item in customers)
-                    {
-                        context.Customers.Add(item);
-                    }
-                    
-                    await context.SaveChangesAsync();
-                }
-                
-                
                 
                 if (!context.Tickets.Any())
                 {

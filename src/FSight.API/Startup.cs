@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using AutoMapper;
 using FSight.Core.Interfaces;
 using FSight.Infrastructure.Data;
-using FSight.Infrastructure.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -44,11 +43,6 @@ namespace FSight.API
             services.AddDbContext<FSightContext>(o =>
             {
                 o.UseSqlServer(Configuration["ConnectionStrings:SqlDb"]);
-            });
-
-            services.AddDbContext<AppIdentityDbContext>(o =>
-            {
-                o.UseSqlServer(Configuration["ConnectionStrings:IdentityDb"]);
             });
             
             services.AddSwaggerGen(c =>

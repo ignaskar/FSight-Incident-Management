@@ -11,7 +11,6 @@ namespace FSight.Infrastructure.Data.Config
         {
             builder.Property(x => x.FirstName).IsRequired().HasMaxLength(50);
             builder.Property(x => x.LastName).IsRequired().HasMaxLength(50);
-            builder.Property(x => x.Email).IsRequired().HasMaxLength(50);
             builder.Property(x => x.CreateDate).HasDefaultValue(DateTime.UtcNow);
             builder.Property(x => x.LastUpdated).HasDefaultValue(DateTime.UtcNow);
         }

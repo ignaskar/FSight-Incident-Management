@@ -10,7 +10,6 @@ namespace FSight.Infrastructure.Data.Config
         public override void Configure(EntityTypeBuilder<Customer> builder)
         {
             base.Configure(builder);
-            builder.Property(x => x.Type).HasDefaultValue(UserType.Customer);
             builder.ToTable("Customers");
         }
     }
