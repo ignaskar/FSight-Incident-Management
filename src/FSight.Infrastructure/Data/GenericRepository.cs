@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FSight.Infrastructure.Data
 {
-    public class GenericRepository<T> : IGenericRepository<T> where T: BaseEntity
+    public class GenericRepository<T> : IGenericRepository<T> where T: class
     {
         private readonly FSightContext _context;
 

@@ -8,9 +8,7 @@ namespace FSight.Core.Specifications
             : base(x => 
                 (string.IsNullOrEmpty(ticketParams.Search) || x.Number.ToLower().Contains(ticketParams.Search)
                                                            || x.Title.ToLower().Contains(ticketParams.Search)
-                                                           || x.Description.ToLower().Contains(ticketParams.Search)) &&
-                (!ticketParams.DeveloperId.HasValue || x.DeveloperId == ticketParams.DeveloperId) &&
-                (!ticketParams.CustomerId.HasValue || x.CustomerId == ticketParams.CustomerId))
+                                                           || x.Description.ToLower().Contains(ticketParams.Search)))
         {
             
         }

@@ -1,5 +1,6 @@
 using System;
 using AutoMapper;
+using FSight.API.Extensions;
 using FSight.Core.Interfaces;
 using FSight.Infrastructure.Data;
 using Microsoft.AspNetCore.Builder;
@@ -37,6 +38,8 @@ namespace FSight.API
             {
                 o.UseSqlServer(Configuration["ConnectionStrings:SqlDb"]);
             });
+
+            services.AddIdentityServices();
             
             services.AddSwaggerGen(c =>
             {
