@@ -11,7 +11,10 @@ namespace FSight.Infrastructure.Data.Config
             builder.Property(x => x.FirstName).IsRequired().HasMaxLength(50);
             builder.Property(x => x.LastName).IsRequired().HasMaxLength(50);
             builder.Property(x => x.Email).IsRequired().HasMaxLength(50);
+            builder.Property(x => x.EmployeeNumber).HasMaxLength(10);
             builder.Property(x => x.UserName).HasMaxLength(50);
+            builder.Property(x => x.CreateDate).HasDefaultValueSql("GETUTCDATE()");
+            builder.Property(x => x.LastUpdated).HasDefaultValueSql("GETUTCDATE()");
         }
     }
 }

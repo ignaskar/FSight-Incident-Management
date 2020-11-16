@@ -3,6 +3,7 @@ using AutoMapper;
 using FSight.API.Extensions;
 using FSight.Core.Interfaces;
 using FSight.Infrastructure.Data;
+using FSight.Infrastructure.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -29,7 +30,8 @@ namespace FSight.API
             {
                 o.JsonSerializerOptions.IgnoreNullValues = true;
             });
-            
+
+            services.AddScoped<ITokenService, TokenService>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -39,7 +41,7 @@ namespace FSight.API
                 o.UseSqlServer(Configuration["ConnectionStrings:SqlDb"]);
             });
 
-            services.AddIdentityServices();
+            services.AddIdentityServices(Configuration);
             
             services.AddSwaggerGen(c =>
             {
@@ -61,6 +63,7 @@ namespace FSight.API
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
