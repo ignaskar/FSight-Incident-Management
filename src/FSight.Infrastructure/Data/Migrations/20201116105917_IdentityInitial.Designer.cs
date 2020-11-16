@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FSight.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(FSightContext))]
-    [Migration("20201115221948_IdentityInitial")]
+    [Migration("20201116105917_IdentityInitial")]
     partial class IdentityInitial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,10 +23,12 @@ namespace FSight.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("FSight.Core.Entities.Comment", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("AuthorId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Body")
                         .HasColumnType("nvarchar(max)");
@@ -34,101 +36,16 @@ namespace FSight.Infrastructure.Data.Migrations
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("CustomerId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("DeveloperId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ProjectManagerId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TicketId")
-                        .HasColumnType("int");
+                    b.Property<string>("TicketId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CustomerId");
-
-                    b.HasIndex("DeveloperId");
-
-                    b.HasIndex("ProjectManagerId");
+                    b.HasIndex("AuthorId");
 
                     b.HasIndex("TicketId");
 
                     b.ToTable("Comments");
-                });
-
-            modelBuilder.Entity("FSight.Core.Entities.Customer", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<DateTime>("CreateDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2020, 11, 15, 22, 19, 48, 568, DateTimeKind.Utc).AddTicks(7710));
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<DateTime>("LastUpdated")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2020, 11, 15, 22, 19, 48, 571, DateTimeKind.Utc).AddTicks(4080));
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Customers");
-                });
-
-            modelBuilder.Entity("FSight.Core.Entities.Developer", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<DateTime>("CreateDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2020, 11, 15, 22, 19, 48, 571, DateTimeKind.Utc).AddTicks(8190));
-
-                    b.Property<string>("EmployeeNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<DateTime>("LastUpdated")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2020, 11, 15, 22, 19, 48, 571, DateTimeKind.Utc).AddTicks(8550));
-
-                    b.Property<int>("ProjectId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProjectId");
-
-                    b.ToTable("Developers");
                 });
 
             modelBuilder.Entity("FSight.Core.Entities.Identity.AppRole", b =>
@@ -175,18 +92,26 @@ namespace FSight.Infrastructure.Data.Migrations
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("DeveloperId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<string>("EmployeeNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<DateTime>("LastUpdated")
                         .HasColumnType("datetime2");
@@ -214,8 +139,8 @@ namespace FSight.Infrastructure.Data.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("ProjectManagerId")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("ProjectId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
@@ -224,17 +149,10 @@ namespace FSight.Infrastructure.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CustomerId")
-                        .IsUnique();
-
-                    b.HasIndex("DeveloperId")
-                        .IsUnique()
-                        .HasFilter("[DeveloperId] IS NOT NULL");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -244,19 +162,16 @@ namespace FSight.Infrastructure.Data.Migrations
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.HasIndex("ProjectManagerId")
-                        .IsUnique()
-                        .HasFilter("[ProjectManagerId] IS NOT NULL");
+                    b.HasIndex("ProjectId");
 
                     b.ToTable("AspNetUsers");
                 });
 
             modelBuilder.Entity("FSight.Core.Entities.Project", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
@@ -267,58 +182,18 @@ namespace FSight.Infrastructure.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ProjectManagerId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("ProjectManagerId")
-                        .IsUnique();
 
                     b.ToTable("Projects");
                 });
 
-            modelBuilder.Entity("FSight.Core.Entities.ProjectManager", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<DateTime>("CreateDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2020, 11, 15, 22, 19, 48, 572, DateTimeKind.Utc).AddTicks(1650));
-
-                    b.Property<string>("EmployeeNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<DateTime>("LastUpdated")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2020, 11, 15, 22, 19, 48, 572, DateTimeKind.Utc).AddTicks(1920));
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ProjectManagers");
-                });
-
             modelBuilder.Entity("FSight.Core.Entities.Ticket", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                    b.Property<string>("Number")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<Guid?>("AssigneeId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Category")
                         .HasColumnType("int");
@@ -326,20 +201,14 @@ namespace FSight.Infrastructure.Data.Migrations
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("DeveloperId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("LastUpdated")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("Number")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Priority")
                         .HasColumnType("int");
@@ -350,14 +219,12 @@ namespace FSight.Infrastructure.Data.Migrations
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UpdatedBy")
-                        .HasColumnType("int");
+                    b.Property<Guid>("UpdatedBy")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("Id");
+                    b.HasKey("Number");
 
-                    b.HasIndex("CustomerId");
-
-                    b.HasIndex("DeveloperId");
+                    b.HasIndex("AssigneeId");
 
                     b.ToTable("Tickets");
                 });
@@ -465,93 +332,37 @@ namespace FSight.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("FSight.Core.Entities.Comment", b =>
                 {
-                    b.HasOne("FSight.Core.Entities.Customer", "Customer")
+                    b.HasOne("FSight.Core.Entities.Identity.AppUser", "Author")
                         .WithMany("Comments")
-                        .HasForeignKey("CustomerId");
-
-                    b.HasOne("FSight.Core.Entities.Developer", "Developer")
-                        .WithMany("Comments")
-                        .HasForeignKey("DeveloperId");
-
-                    b.HasOne("FSight.Core.Entities.ProjectManager", "ProjectManager")
-                        .WithMany("Comments")
-                        .HasForeignKey("ProjectManagerId");
-
-                    b.HasOne("FSight.Core.Entities.Ticket", "Ticket")
-                        .WithMany("Comments")
-                        .HasForeignKey("TicketId")
+                        .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Customer");
+                    b.HasOne("FSight.Core.Entities.Ticket", "Ticket")
+                        .WithMany("Comments")
+                        .HasForeignKey("TicketId");
 
-                    b.Navigation("Developer");
-
-                    b.Navigation("ProjectManager");
+                    b.Navigation("Author");
 
                     b.Navigation("Ticket");
                 });
 
-            modelBuilder.Entity("FSight.Core.Entities.Developer", b =>
+            modelBuilder.Entity("FSight.Core.Entities.Identity.AppUser", b =>
                 {
                     b.HasOne("FSight.Core.Entities.Project", "Project")
                         .WithMany("Members")
-                        .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ProjectId");
 
                     b.Navigation("Project");
                 });
 
-            modelBuilder.Entity("FSight.Core.Entities.Identity.AppUser", b =>
-                {
-                    b.HasOne("FSight.Core.Entities.Customer", "Customer")
-                        .WithOne("User")
-                        .HasForeignKey("FSight.Core.Entities.Identity.AppUser", "CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("FSight.Core.Entities.Developer", "Developer")
-                        .WithOne("User")
-                        .HasForeignKey("FSight.Core.Entities.Identity.AppUser", "DeveloperId");
-
-                    b.HasOne("FSight.Core.Entities.ProjectManager", "ProjectManager")
-                        .WithOne("User")
-                        .HasForeignKey("FSight.Core.Entities.Identity.AppUser", "ProjectManagerId");
-
-                    b.Navigation("Customer");
-
-                    b.Navigation("Developer");
-
-                    b.Navigation("ProjectManager");
-                });
-
-            modelBuilder.Entity("FSight.Core.Entities.Project", b =>
-                {
-                    b.HasOne("FSight.Core.Entities.ProjectManager", "ProjectManager")
-                        .WithOne("Project")
-                        .HasForeignKey("FSight.Core.Entities.Project", "ProjectManagerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ProjectManager");
-                });
-
             modelBuilder.Entity("FSight.Core.Entities.Ticket", b =>
                 {
-                    b.HasOne("FSight.Core.Entities.Customer", "Customer")
+                    b.HasOne("FSight.Core.Entities.Identity.AppUser", "Assignee")
                         .WithMany("Tickets")
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AssigneeId");
 
-                    b.HasOne("FSight.Core.Entities.Developer", "Developer")
-                        .WithMany("Tickets")
-                        .HasForeignKey("DeveloperId");
-
-                    b.Navigation("Customer");
-
-                    b.Navigation("Developer");
+                    b.Navigation("Assignee");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -605,36 +416,16 @@ namespace FSight.Infrastructure.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("FSight.Core.Entities.Customer", b =>
+            modelBuilder.Entity("FSight.Core.Entities.Identity.AppUser", b =>
                 {
                     b.Navigation("Comments");
 
                     b.Navigation("Tickets");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("FSight.Core.Entities.Developer", b =>
-                {
-                    b.Navigation("Comments");
-
-                    b.Navigation("Tickets");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("FSight.Core.Entities.Project", b =>
                 {
                     b.Navigation("Members");
-                });
-
-            modelBuilder.Entity("FSight.Core.Entities.ProjectManager", b =>
-                {
-                    b.Navigation("Comments");
-
-                    b.Navigation("Project");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("FSight.Core.Entities.Ticket", b =>

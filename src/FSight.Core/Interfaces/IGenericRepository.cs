@@ -4,7 +4,7 @@ using FSight.Core.Entities;
 
 namespace FSight.Core.Interfaces
 {
-    public interface IGenericRepository<T> where T: BaseEntity
+    public interface IGenericRepository<T> where T: class
     {
         Task<T> GetEntityById(int id);
         Task<IReadOnlyList<T>> ListAllAsync();

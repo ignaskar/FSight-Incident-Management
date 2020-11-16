@@ -49,7 +49,7 @@ namespace FSight.API.Controllers
         [HttpGet("{ticketId}", Name = "GetTicket")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(TicketDto), StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<TicketDto>> GetTicket(int ticketId)
+        public async Task<ActionResult<TicketDto>> GetTicket(string ticketId)
         {
             var spec = new TicketsWithCommentsDevelopersAndCustomersSpecification(ticketId);
 

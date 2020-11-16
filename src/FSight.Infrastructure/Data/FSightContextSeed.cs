@@ -1,3 +1,4 @@
+/*
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -5,6 +6,8 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using FSight.Core.Entities;
+using FSight.Core.Entities.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 
 namespace FSight.Infrastructure.Data
@@ -109,3 +112,4 @@ namespace FSight.Infrastructure.Data
         }
     }
 }
+*/

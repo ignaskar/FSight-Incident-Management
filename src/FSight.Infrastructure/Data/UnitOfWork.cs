@@ -21,7 +21,7 @@ namespace FSight.Infrastructure.Data
             _context.Dispose();
         }
 
-        public IGenericRepository<TEntity> Repository<TEntity>() where TEntity : BaseEntity
+        public IGenericRepository<TEntity> Repository<TEntity>() where TEntity : class
         {
             _repositories ??= new Hashtable();
 
