@@ -16,8 +16,6 @@ namespace FSight.Core.Specifications
         }
 
         public ICollection<Ticket>? Comments { get; set; }
-        public int? DeveloperId { get; set; }
-        public int? CustomerId { get; set; }
         public string Sort { get; set; }
 
         private string _search;

@@ -1,11 +1,16 @@
 using System;
+using System.Linq;
 using AutoMapper;
+using FSight.API.Errors;
 using FSight.API.Extensions;
+using FSight.API.Middleware;
 using FSight.Core.Interfaces;
 using FSight.Infrastructure.Data;
 using FSight.Infrastructure.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,38 +31,26 @@ namespace FSight.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers().AddJsonOptions(o =>
-            {
-                o.JsonSerializerOptions.IgnoreNullValues = true;
-            });
-
-            services.AddScoped<ITokenService, TokenService>();
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddControllers();
             
             services.AddDbContext<FSightContext>(o =>
             {
                 o.UseSqlServer(Configuration["ConnectionStrings:SqlDb"]);
             });
 
+            services.AddApplicationServices();
             services.AddIdentityServices(Configuration);
-            
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo {Title = "FSight.API", Version = "v1"});
-            });
+            services.AddSwaggerServices();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "FSight.API v1"));
-            }
+            app.UseMiddleware<ExceptionMiddleware>();
+            app.UseStatusCodePagesWithReExecute("/errors/{0}");
+
+            app.UseSwaggerDocumentation();
 
             app.UseHttpsRedirection();
 

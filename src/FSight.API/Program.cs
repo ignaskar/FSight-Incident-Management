@@ -24,13 +24,15 @@ namespace FSight.API
                 var services = scope.ServiceProvider;
                 var loggerFactory = services.GetRequiredService<ILoggerFactory>();
                 var userManager = services.GetRequiredService<UserManager<AppUser>>();
+                var roleManager = services.GetRequiredService<RoleManager<AppRole>>();
 
                 try
                 {
                     var context = services.GetRequiredService<FSightContext>();
+                    await context.Database.EnsureDeletedAsync();
                     await context.Database.MigrateAsync();
                     //await FSightContextSeed.SeedAsync(context, loggerFactory);
-                    await FSightContextSeed.SeedUsersAsync(userManager);
+                    await FSightContextSeed.SeedUsersAsync(userManager, roleManager);
                 }
                 catch (Exception ex)
                 {

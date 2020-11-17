@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using FSight.API.Dtos;
+using FSight.API.Errors;
 using FSight.API.Helpers;
 using FSight.Core.Entities;
 using FSight.Core.Interfaces;
@@ -24,7 +25,7 @@ namespace FSight.API.Controllers
         {
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-            _ticketRepo = ticketRepo;
+            _ticketRepo = ticketRepo ?? throw new ArgumentNullException(nameof(ticketRepo));
         }
 
         [HttpGet]
@@ -57,7 +58,7 @@ namespace FSight.API.Controllers
 
             if (ticket == null)
             {
-                return NotFound();
+                return NotFound(new ApiResponse(404));
             }
 
             return Ok(_mapper.Map<Ticket, TicketDto>(ticket));

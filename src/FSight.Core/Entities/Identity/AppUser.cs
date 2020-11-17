@@ -11,7 +11,6 @@ namespace FSight.Core.Entities.Identity
         public string LastName { get; set; }
         public string? EmployeeNumber { get; set; }
 
-        //public Comment Comment { get; set; }
         public ICollection<Comment> Comments { get; set; } = new List<Comment>();
         public ICollection<Ticket> Tickets { get; set; } = new List<Ticket>();
         public Project? Project { get; set; }

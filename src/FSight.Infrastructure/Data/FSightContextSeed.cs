@@ -13,11 +13,11 @@ namespace FSight.Infrastructure.Data
 {
     public class FSightContextSeed
     {
-        public static async Task SeedUsersAsync(UserManager<AppUser> userManager)
+        public static async Task SeedUsersAsync(UserManager<AppUser> userManager, RoleManager<AppRole> roleManager)
         {
             if (!userManager.Users.Any())
             {
-                var user = new AppUser
+                var defaultUser = new AppUser
                 {
                     FirstName = "Bob",
                     LastName = "Bobitty",
@@ -26,7 +26,25 @@ namespace FSight.Infrastructure.Data
                     EmployeeNumber = "EN-002547"
                 };
 
-                await userManager.CreateAsync(user, "Pa$$w0rd");
+                var adminUser = new AppUser
+                {
+                    FirstName = "Tim",
+                    LastName = "Corey",
+                    UserName = "timothy.corey@fsight.net",
+                    Email = "timothy.corey@fsight.net",
+                    EmployeeNumber = "EN-000001"
+                };
+
+                var adminRole = new AppRole
+                {
+                    Name = "Administrator"
+                };
+
+                await roleManager.CreateAsync(adminRole);
+                await userManager.CreateAsync(adminUser, "V3r!Str0nk");
+                await userManager.AddToRoleAsync(adminUser, "Administrator");
+
+                await userManager.CreateAsync(defaultUser, "Pa$$w0rd");
             }
         }
         

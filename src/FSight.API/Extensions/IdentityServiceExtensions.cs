@@ -16,6 +16,7 @@ namespace FSight.API.Extensions
             var builder = services.AddIdentityCore<AppUser>();
             
             builder = new IdentityBuilder(builder.UserType, builder.Services);
+            builder.AddRoles<AppRole>();
             builder.AddEntityFrameworkStores<FSightContext>();
             builder.AddSignInManager<SignInManager<AppUser>>();
 
