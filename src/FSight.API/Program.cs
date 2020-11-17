@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FSight.Core.Entities.Identity;
 using FSight.Infrastructure.Data;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,12 +23,16 @@ namespace FSight.API
             {
                 var services = scope.ServiceProvider;
                 var loggerFactory = services.GetRequiredService<ILoggerFactory>();
+                var userManager = services.GetRequiredService<UserManager<AppUser>>();
+                var roleManager = services.GetRequiredService<RoleManager<AppRole>>();
 
                 try
                 {
                     var context = services.GetRequiredService<FSightContext>();
+                    await context.Database.EnsureDeletedAsync();
                     await context.Database.MigrateAsync();
-                    await FSightContextSeed.SeedAsync(context, loggerFactory);
+                    //await FSightContextSeed.SeedAsync(context, loggerFactory);
+                    await FSightContextSeed.SeedUsersAsync(userManager, roleManager);
                 }
                 catch (Exception ex)
                 {

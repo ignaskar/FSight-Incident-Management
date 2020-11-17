@@ -1,4 +1,4 @@
-using AutoMapper;
+/*using AutoMapper;
 using FSight.API.Dtos;
 using FSight.Core.Entities;
 
@@ -18,4 +18,4 @@ namespace FSight.API.Profiles
             //.ForAllMembers(opt => opt.Condition((src, dest, srcMember) => srcMember != null));
         }
     }
-}
+}*/

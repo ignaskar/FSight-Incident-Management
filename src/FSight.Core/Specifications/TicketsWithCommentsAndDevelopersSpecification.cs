@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using FSight.Core.Entities;
 
@@ -9,13 +10,9 @@ namespace FSight.Core.Specifications
             : base(x => 
                 (string.IsNullOrEmpty(ticketParams.Search) || x.Number.ToLower().Contains(ticketParams.Search)
                                                            || x.Title.ToLower().Contains(ticketParams.Search)
-                                                           || x.Description.ToLower().Contains(ticketParams.Search)) &&
-                (!ticketParams.DeveloperId.HasValue || x.DeveloperId == ticketParams.DeveloperId) &&
-                (!ticketParams.CustomerId.HasValue || x.CustomerId == ticketParams.CustomerId))
+                                                           || x.Description.ToLower().Contains(ticketParams.Search)))
         {
             AddInclude(x => x.Comments);
-            AddInclude(x => x.Customer);
-            AddInclude(x => x.Developer);
             AddOrderBy(x => x.Number);
             ApplyPaging(ticketParams.PageSize * (ticketParams.PageIndex - 1), ticketParams.PageIndex);
 
@@ -36,11 +33,9 @@ namespace FSight.Core.Specifications
             }
         }
 
-        public TicketsWithCommentsDevelopersAndCustomersSpecification(int id) : base(x => x.Id == id)
+        public TicketsWithCommentsDevelopersAndCustomersSpecification(string incNumber) : base(x => x.Number == incNumber)
         {
             AddInclude(x => x.Comments);
-            AddInclude(x => x.Developer);
-            AddInclude(x => x.Customer);
         }
     }
 }
