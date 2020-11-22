@@ -7,5 +7,9 @@ namespace FSight.API.Dtos
     {
         public override ICollection<CommentDto> Comments { get; set; } = new List<CommentDto>();
         public Guid CreatedBy { get; set; }
+        public Guid UpdatedBy { get; set; }
+        public DateTime CreateDate => DateTime.UtcNow;
+
+        public DateTime LastUpdated => DateTime.UtcNow;
     }
 }

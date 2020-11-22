@@ -13,6 +13,7 @@ namespace FSight.API.Dtos
         public virtual string Number { get; set; }
         
         [Required]
+        [MaxLength(75, ErrorMessage = "Title shouldn't be longer than 75 characters.")]
         public string Title { get; set; }
         
         [Required]

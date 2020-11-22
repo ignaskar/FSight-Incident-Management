@@ -17,13 +17,30 @@ namespace FSight.Infrastructure.Data
         {
             if (!userManager.Users.Any())
             {
-                var defaultUser = new AppUser
+                var customerUser = new AppUser
                 {
                     FirstName = "Bob",
                     LastName = "Bobitty",
-                    UserName = "bob.bobitty@fsight.net",
-                    Email = "bob.bobitty@fsight.net",
-                    EmployeeNumber = "EN-002547"
+                    UserName = "bobberino1980@gmail.com",
+                    Email = "bobberino1980@gmail.com"
+                };
+
+                var developerUser = new AppUser
+                {
+                    FirstName = "Ignas",
+                    LastName = "Karpusenkovas",
+                    EmployeeNumber = "EN-000002",
+                    Email = "ignas.karpusenkovas@fsight.net",
+                    UserName = "ignas.karpusenkovas@fsight.net"
+                };
+                
+                var projectManagerUser = new AppUser
+                {
+                    FirstName = "Jack",
+                    LastName = "Jones",
+                    EmployeeNumber = "EN-000003",
+                    Email = "jack.jones@fsight.net",
+                    UserName = "jack.jones@fsight.net"
                 };
 
                 var adminUser = new AppUser
@@ -35,6 +52,21 @@ namespace FSight.Infrastructure.Data
                     EmployeeNumber = "EN-000001"
                 };
 
+                var customerRole = new AppRole
+                {
+                    Name = "Customer"
+                };
+                
+                var developerRole = new AppRole
+                {
+                    Name = "Developer"
+                };
+                
+                var projectManagerRole = new AppRole
+                {
+                    Name = "ProjectManager"
+                };
+
                 var adminRole = new AppRole
                 {
                     Name = "Administrator"
@@ -44,7 +76,17 @@ namespace FSight.Infrastructure.Data
                 await userManager.CreateAsync(adminUser, "V3r!Str0nk");
                 await userManager.AddToRoleAsync(adminUser, "Administrator");
 
-                await userManager.CreateAsync(defaultUser, "Pa$$w0rd");
+                await roleManager.CreateAsync(developerRole);
+                await userManager.CreateAsync(developerUser, "Uw1llNev3rGetThi$");
+                await userManager.AddToRoleAsync(developerUser, "Developer");
+
+                await roleManager.CreateAsync(projectManagerRole);
+                await userManager.CreateAsync(projectManagerUser, "h3LloW0rld!");
+                await userManager.AddToRoleAsync(projectManagerUser, "ProjectManager");
+                
+                await roleManager.CreateAsync(customerRole);
+                await userManager.CreateAsync(customerUser, "Pa$$w0rd");
+                await userManager.AddToRoleAsync(customerUser, "Customer");
             }
         }
         
