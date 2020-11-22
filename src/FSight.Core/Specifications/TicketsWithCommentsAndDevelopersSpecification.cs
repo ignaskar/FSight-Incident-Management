@@ -17,7 +17,7 @@ namespace FSight.Core.Specifications
             AddInclude(x => x.Assignee);
 
             AddOrderBy(x => x.Number);
-            ApplyPaging(ticketParams.PageSize * (ticketParams.PageIndex - 1), ticketParams.PageIndex);
+            ApplyPaging(ticketParams.PageSize * (ticketParams.PageIndex - 1), ticketParams.PageSize);
 
             if (!string.IsNullOrEmpty(ticketParams.Sort))
             {

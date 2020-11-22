@@ -7,12 +7,10 @@ using FSight.API.Dtos;
 using FSight.API.Errors;
 using FSight.API.Helpers;
 using FSight.Core.Entities;
-using FSight.Core.Entities.Identity;
 using FSight.Core.Interfaces;
 using FSight.Core.Specifications;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FSight.API.Controllers
@@ -23,15 +21,11 @@ namespace FSight.API.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        private readonly IGenericRepository<Ticket> _ticketRepo;
-        private readonly UserManager<AppUser> _userManager;
 
-        public TicketsController(IUnitOfWork unitOfWork, IMapper mapper, IGenericRepository<Ticket> ticketRepo, UserManager<AppUser> userManager)
+        public TicketsController(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-            _ticketRepo = ticketRepo ?? throw new ArgumentNullException(nameof(ticketRepo));
-            _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
         }
 
         [HttpGet]
@@ -43,10 +37,10 @@ namespace FSight.API.Controllers
             var spec = new TicketsWithCommentsAndDevelopersSpecification(parameters);
             
             var countSpec = new TicketWithFiltersForCountSpecification(parameters);
-
-            var totalItems = await _unitOfWork.Repository<Ticket>().CountAsync(countSpec);
             
             var tickets = await _unitOfWork.Repository<Ticket>().ListAsync(spec);
+
+            var totalItems = await _unitOfWork.Repository<Ticket>().CountAsync(countSpec);
             
             var data = _mapper.Map<IReadOnlyList<Ticket>, IReadOnlyList<TicketDto>>(tickets);
 

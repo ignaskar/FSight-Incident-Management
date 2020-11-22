@@ -10,6 +10,7 @@ namespace FSight.API.Dtos
     public abstract class TicketForManipulationDto
     {
         [Required]
+        [MaxLength(30, ErrorMessage = "Number shouldn't be longer than 30 characters.")]
         public virtual string Number { get; set; }
         
         [Required]
