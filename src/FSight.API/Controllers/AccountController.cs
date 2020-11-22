@@ -73,7 +73,7 @@ namespace FSight.API.Controllers
 
             if (!result.Succeeded)
             {
-                return BadRequest();
+                return UnprocessableEntity();
             }
 
             return new UserDto
@@ -92,14 +92,14 @@ namespace FSight.API.Controllers
 
             if (user == null)
             {
-                return Unauthorized();
+                return Unauthorized(new ApiResponse(401, "Login failed. Either an account with this email does not exist or password was incorrect."));
             }
 
             var result = await _signInManager.CheckPasswordSignInAsync(user, loginDto.Password, true);
 
             if (!result.Succeeded)
             {
-                return Unauthorized();
+                return Unauthorized(new ApiResponse(401, "Login failed. Either an account with this email does not exist or password was incorrect."));
             }
 
             return new UserDto
