@@ -11,6 +11,7 @@ using FSight.Core.Interfaces;
 using FSight.Core.Specifications;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FSight.API.Controllers
@@ -85,7 +86,38 @@ namespace FSight.API.Controllers
             
              var ticketToReturn = _mapper.Map<TicketDto>(ticketEntity);
              return CreatedAtRoute("GetTicket", new {ticketId = ticketToReturn.Id}, ticketToReturn);
+        }
 
+        [HttpPatch("{ticketId}")]
+        [Authorize(Roles = "Developer")]
+        public async Task<ActionResult> PartiallyUpdateTicket(int ticketId,
+            JsonPatchDocument<TicketForUpdateDto> patchDocument)
+        {
+            var spec = new TicketsWithCommentsAndDevelopersSpecification(ticketId);
+
+            var ticket = await _unitOfWork.Repository<Ticket>().GetEntityWithSpecification(spec);
+
+            if (ticket == null)
+            {
+                _unitOfWork.Dispose();
+                return NotFound(new ApiResponse(404));
+            }
+
+            var ticketToPatch = _mapper.Map<TicketForUpdateDto>(ticket);
+            
+            patchDocument.ApplyTo(ticketToPatch, ModelState);
+
+            if (!TryValidateModel(ticketToPatch))
+            {
+                return ValidationProblem(ModelState);
+            }
+
+            var updatedTicket = _mapper.Map(ticketToPatch, ticket);
+            
+            _unitOfWork.Repository<Ticket>().Update(updatedTicket);
+            await _unitOfWork.Complete();
+
+            return NoContent();
         }
     }
 }

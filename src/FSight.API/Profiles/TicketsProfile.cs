@@ -9,11 +9,10 @@ namespace FSight.API.Profiles
     {
         public TicketsProfile()
         {
-            CreateMap<Ticket, TicketDto>()
-                .ForMember(dest => dest.Assignee,
-                    opt => opt.MapFrom(src => src.Assignee));
-
+            CreateMap<Ticket, TicketDto>();
             CreateMap<TicketForCreationDto, Ticket>();
+            CreateMap<TicketForUpdateDto, Ticket>();
+            CreateMap<Ticket, TicketForUpdateDto>();
         }
     }
 }
