@@ -34,7 +34,7 @@ namespace FSight.API.Controllers
         public async Task<ActionResult<Pagination<TicketDto>>> GetTickets(
             [FromQuery] TicketSpecParams parameters)
         {
-            var spec = new TicketsWithCommentsDevelopersAndCustomersSpecification(parameters);
+            var spec = new TicketsWithCommentsAndDevelopersSpecification(parameters);
             
             var countSpec = new TicketWithFiltersForCountSpecification(parameters);
 
@@ -50,9 +50,9 @@ namespace FSight.API.Controllers
         [HttpGet("{ticketId}", Name = "GetTicket")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(TicketDto), StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<TicketDto>> GetTicket(string ticketId)
+        public async Task<ActionResult<TicketDto>> GetTicket(int ticketId)
         {
-            var spec = new TicketsWithCommentsDevelopersAndCustomersSpecification(ticketId);
+            var spec = new TicketsWithCommentsAndDevelopersSpecification(ticketId);
 
             var ticket = await _unitOfWork.Repository<Ticket>().GetEntityWithSpecification(spec);
 

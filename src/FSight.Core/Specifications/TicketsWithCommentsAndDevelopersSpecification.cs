@@ -4,15 +4,18 @@ using FSight.Core.Entities;
 
 namespace FSight.Core.Specifications
 {
-    public class TicketsWithCommentsDevelopersAndCustomersSpecification : BaseSpecification<Ticket>
+    public class TicketsWithCommentsAndDevelopersSpecification : BaseSpecification<Ticket>
     {
-        public TicketsWithCommentsDevelopersAndCustomersSpecification(TicketSpecParams ticketParams)
+        public TicketsWithCommentsAndDevelopersSpecification(TicketSpecParams ticketParams)
             : base(x => 
                 (string.IsNullOrEmpty(ticketParams.Search) || x.Number.ToLower().Contains(ticketParams.Search)
                                                            || x.Title.ToLower().Contains(ticketParams.Search)
-                                                           || x.Description.ToLower().Contains(ticketParams.Search)))
+                                                           || x.Description.ToLower().Contains(ticketParams.Search)) &&
+                (!ticketParams.AssigneeId.HasValue || x.AssigneeId == ticketParams.AssigneeId))
         {
             AddInclude(x => x.Comments);
+            AddInclude(x => x.Assignee);
+
             AddOrderBy(x => x.Number);
             ApplyPaging(ticketParams.PageSize * (ticketParams.PageIndex - 1), ticketParams.PageIndex);
 
@@ -33,9 +36,10 @@ namespace FSight.Core.Specifications
             }
         }
 
-        public TicketsWithCommentsDevelopersAndCustomersSpecification(string incNumber) : base(x => x.Number == incNumber)
+        public TicketsWithCommentsAndDevelopersSpecification(int id) : base(x => x.Id == id)
         {
             AddInclude(x => x.Comments);
+            AddInclude(x => x.Assignee);
         }
     }
 }
