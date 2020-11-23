@@ -9,7 +9,7 @@ At this moment the list of features are (all endpoints require users to be autho
 ### /api/v1/tickets:
 * **GET** a single or a list of tickets.
 * **POST** a new ticket.
-* **PATCH** a ticket, e.g. Assign a developer or add a comment.
+* **PATCH** a ticket, e.g. assign a developer or add a comment.
 * **OPTIONS** and **HEAD** are also supported as per RESTful guidelines.
 
 ### /api/v1/account
@@ -30,6 +30,7 @@ At this moment the list of features are (all endpoints require users to be autho
     "password": string
 }
 ```
+You can always check a more in-depth API documentation on **Swagger** (https://localhost:5001/swagger/index.html).
 
 ## What's next?
 
