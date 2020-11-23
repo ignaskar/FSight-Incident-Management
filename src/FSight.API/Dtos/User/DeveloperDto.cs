@@ -2,12 +2,8 @@ using System;
 
 namespace FSight.API.Dtos.User
 {
-    public class DeveloperDto
+    public class DeveloperDto : GenericUserDto
     {
-        public Guid Id { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Email { get; set; }
-        public string EmployeeNumber { get; set; }
+        public override string EmployeeNumber { get; set; }
     }
 }

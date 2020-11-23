@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
-using FSight.API.Dtos;
 using FSight.API.Dtos.Ticket;
 using FSight.API.Errors;
 using FSight.API.Helpers;
@@ -13,7 +12,6 @@ using FSight.Core.Specifications;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
-using Microsoft.AspNetCore.JsonPatch.Operations;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FSight.API.Controllers
@@ -35,7 +33,7 @@ namespace FSight.API.Controllers
         [HttpGet]
         [HttpHead]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<Pagination<TicketDto>>> GetTickets(
+        public async Task<ActionResult<Pagination<TicketDto>>> GetAllTickets(
             [FromQuery] TicketSpecParams parameters)
         {
             var spec = new TicketsWithCommentsAndDevelopersSpecification(parameters);
@@ -54,7 +52,7 @@ namespace FSight.API.Controllers
         [HttpGet("{ticketId}", Name = "GetTicket")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(TicketDto), StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<TicketDto>> GetTicket(int ticketId)
+        public async Task<ActionResult<TicketDto>> GetSingleTicket(int ticketId)
         {
             var spec = new TicketsWithCommentsAndDevelopersSpecification(ticketId);
 
@@ -87,7 +85,14 @@ namespace FSight.API.Controllers
             var ticketEntity = _mapper.Map<Ticket>(ticket);
              _unitOfWork.Repository<Ticket>().Add(ticketEntity);
             
-             await _unitOfWork.Complete();
+             try
+             {
+                 await _unitOfWork.Complete();
+             }
+             catch (Exception ex)
+             {
+                 return new ObjectResult(new ApiException(500, ex.Message)); 
+             }
             
              var ticketToReturn = _mapper.Map<TicketDto>(ticketEntity);
              return CreatedAtRoute("GetTicket", new {ticketId = ticketToReturn.Id}, ticketToReturn);
@@ -121,9 +126,16 @@ namespace FSight.API.Controllers
             }
 
             var updatedTicket = _mapper.Map(ticketToPatch, ticket);
-            
-            _unitOfWork.Repository<Ticket>().Update(updatedTicket);
-            await _unitOfWork.Complete();
+
+            try
+            {
+                _unitOfWork.Repository<Ticket>().Update(updatedTicket);
+                await _unitOfWork.Complete();
+            }
+            catch (Exception ex)
+            {
+                return new ObjectResult(new ApiException(500, ex.Message));
+            }
 
             return NoContent();
         }
@@ -132,7 +144,7 @@ namespace FSight.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult GetTicketsOptions()
         {
-            Response.Headers.Add("Allow", "GET,POST,PATCH,OPTIONS");
+            Response.Headers.Add("Allow", "GET,POST,PATCH,HEAD,OPTIONS");
             return Ok(new ApiResponse(200));
         }
     }
