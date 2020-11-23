@@ -12,6 +12,12 @@ At this moment the list of features are (all endpoints require users to be autho
 * **PATCH** a ticket, e.g. assign a developer or add a comment.
 * **OPTIONS** and **HEAD** are also supported as per RESTful guidelines.
 
+### /api/v1/projects:
+* **GET** a single or a list of projects.
+* **POST** a new project.
+* **PATCH** a project, e.g. assign a project manager or add members.
+* **OPTIONS** and **HEAD** supported as well.
+
 ### /api/v1/account
 * **POST** to **/register** requires a following JSON format (if validation fails, **Status 422** will be returned):
 ```
