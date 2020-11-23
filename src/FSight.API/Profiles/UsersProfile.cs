@@ -9,8 +9,7 @@ namespace FSight.API.Profiles
     {
         public UsersProfile()
         {
-            CreateMap<AppUser, DeveloperDto>();
-            CreateMap<AppUser, CustomerDto>();
+            CreateMap<AppUser, GenericUserDto>();
         }
     }
 }

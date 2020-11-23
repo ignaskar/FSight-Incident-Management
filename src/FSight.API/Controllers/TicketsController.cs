@@ -35,7 +35,7 @@ namespace FSight.API.Controllers
         [HttpGet]
         [HttpHead]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<Pagination<TicketDto>>> GetTickets(
+        public async Task<ActionResult<Pagination<TicketDto>>> GetAllTickets(
             [FromQuery] TicketSpecParams parameters)
         {
             var spec = new TicketsWithCommentsAndDevelopersSpecification(parameters);
@@ -54,7 +54,7 @@ namespace FSight.API.Controllers
         [HttpGet("{ticketId}", Name = "GetTicket")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(TicketDto), StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<TicketDto>> GetTicket(int ticketId)
+        public async Task<ActionResult<TicketDto>> GetSingleTicket(int ticketId)
         {
             var spec = new TicketsWithCommentsAndDevelopersSpecification(ticketId);
 
@@ -87,7 +87,14 @@ namespace FSight.API.Controllers
             var ticketEntity = _mapper.Map<Ticket>(ticket);
              _unitOfWork.Repository<Ticket>().Add(ticketEntity);
             
-             await _unitOfWork.Complete();
+             try
+             {
+                 await _unitOfWork.Complete();
+             }
+             catch (Exception ex)
+             {
+                 return StatusCode(500, new ApiException(500, ex.Message, ex.StackTrace));
+             }
             
              var ticketToReturn = _mapper.Map<TicketDto>(ticketEntity);
              return CreatedAtRoute("GetTicket", new {ticketId = ticketToReturn.Id}, ticketToReturn);
