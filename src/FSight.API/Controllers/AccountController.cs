@@ -3,6 +3,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using FSight.API.Dtos;
+using FSight.API.Dtos.Identity;
 using FSight.API.Errors;
 using FSight.Core.Entities.Identity;
 using FSight.Core.Interfaces;
@@ -76,8 +77,11 @@ namespace FSight.API.Controllers
                 return UnprocessableEntity();
             }
 
+            await _userManager.AddToRoleAsync(user, "Customer");
+
             return new UserDto
             {
+                Id = user.Id,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Email = user.Email,
@@ -104,6 +108,7 @@ namespace FSight.API.Controllers
 
             return new UserDto
             {
+                Id = user.Id,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 EmployeeNumber = user.EmployeeNumber,

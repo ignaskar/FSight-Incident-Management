@@ -29,7 +29,7 @@ namespace FSight.API
                 try
                 {
                     var context = services.GetRequiredService<FSightContext>();
-                    await context.Database.EnsureDeletedAsync();
+                    //await context.Database.EnsureDeletedAsync();
                     await context.Database.MigrateAsync();
                     //await FSightContextSeed.SeedAsync(context, loggerFactory);
                     await FSightContextSeed.SeedUsersAsync(userManager, roleManager);

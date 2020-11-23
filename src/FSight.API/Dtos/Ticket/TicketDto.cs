@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
-using FSight.Core.Enums;
+using FSight.API.Dtos.Comment;
+using FSight.API.Dtos.User;
 
-namespace FSight.API.Dtos
+namespace FSight.API.Dtos.Ticket
 {
     public class TicketDto
     {
@@ -12,8 +14,11 @@ namespace FSight.API.Dtos
         public string State { get; set; }
         public string Priority { get; set; }
         public string Category { get; set; }
+        public Guid CreatedBy { get; set; }
+        public Guid UpdatedBy { get; set; }
+        public DateTime CreateDate { get; set; }
+        public DateTime LastUpdated { get; set; }
         public ICollection<CommentDto> Comments { get; set; } = new List<CommentDto>();
         public DeveloperDto Assignee { get; set; }
-        public CustomerDto Submitter { get; set; }
     }
 }

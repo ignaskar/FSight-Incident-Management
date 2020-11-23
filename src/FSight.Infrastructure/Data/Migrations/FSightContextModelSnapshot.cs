@@ -21,9 +21,10 @@ namespace FSight.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("FSight.Core.Entities.Comment", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
 
                     b.Property<Guid>("AuthorId")
                         .HasColumnType("uniqueidentifier");
@@ -34,8 +35,8 @@ namespace FSight.Infrastructure.Data.Migrations
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("TicketId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("TicketId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -142,8 +143,8 @@ namespace FSight.Infrastructure.Data.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<Guid?>("ProjectId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int?>("ProjectId")
+                        .HasColumnType("int");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
@@ -172,9 +173,10 @@ namespace FSight.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("FSight.Core.Entities.Project", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
 
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
@@ -192,8 +194,10 @@ namespace FSight.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("FSight.Core.Entities.Ticket", b =>
                 {
-                    b.Property<string>("Number")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
 
                     b.Property<Guid?>("AssigneeId")
                         .HasColumnType("uniqueidentifier");
@@ -213,6 +217,9 @@ namespace FSight.Infrastructure.Data.Migrations
                     b.Property<DateTime>("LastUpdated")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Number")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Priority")
                         .HasColumnType("int");
 
@@ -225,7 +232,7 @@ namespace FSight.Infrastructure.Data.Migrations
                     b.Property<Guid>("UpdatedBy")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("Number");
+                    b.HasKey("Id");
 
                     b.HasIndex("AssigneeId");
 
@@ -343,7 +350,9 @@ namespace FSight.Infrastructure.Data.Migrations
 
                     b.HasOne("FSight.Core.Entities.Ticket", "Ticket")
                         .WithMany("Comments")
-                        .HasForeignKey("TicketId");
+                        .HasForeignKey("TicketId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Author");
 

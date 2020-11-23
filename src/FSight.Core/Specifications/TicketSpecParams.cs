@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using FSight.Core.Entities;
 
@@ -16,6 +17,7 @@ namespace FSight.Core.Specifications
         }
 
         public ICollection<Ticket>? Comments { get; set; }
+        public Guid? AssigneeId { get; set; }
         public string Sort { get; set; }
 
         private string _search;

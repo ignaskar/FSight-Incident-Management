@@ -1,18 +1,20 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Runtime;
+using FSight.API.Dtos.Comment;
 using FSight.API.ValidationAttributes;
 
-namespace FSight.API.Dtos
+namespace FSight.API.Dtos.Ticket
 {
     [TicketTitleMustBeDifferentFromDescription(ErrorMessage = 
         "Title must be different from description!")]
     public abstract class TicketForManipulationDto
     {
         [Required]
-        public virtual string Number { get; set; }
+        [MaxLength(30, ErrorMessage = "Number shouldn't be longer than 30 characters.")]
+        public string Number { get; set; }
         
         [Required]
+        [MaxLength(75, ErrorMessage = "Title shouldn't be longer than 75 characters.")]
         public string Title { get; set; }
         
         [Required]
