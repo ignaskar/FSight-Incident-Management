@@ -10,6 +10,8 @@ namespace FSight.API.Profiles
         {
             CreateMap<Project, ProjectDto>();
             CreateMap<ProjectForCreationDto, Project>();
+            CreateMap<ProjectForUpdateDto, Project>();
+            CreateMap<Project, ProjectForUpdateDto>();
         }
     }
 }
