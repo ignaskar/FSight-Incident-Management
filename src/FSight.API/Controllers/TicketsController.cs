@@ -70,6 +70,8 @@ namespace FSight.API.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Customer")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(TicketDto),StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<TicketDto>> CreateTicket(TicketForCreationDto ticket)
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -92,6 +94,9 @@ namespace FSight.API.Controllers
         }
 
         [HttpPatch("{ticketId}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(TicketForUpdateDto), StatusCodes.Status422UnprocessableEntity)]
         public async Task<IActionResult> PartiallyUpdateTicket(int ticketId,
             JsonPatchDocument<TicketForUpdateDto> patchDocument)
         {
@@ -124,6 +129,7 @@ namespace FSight.API.Controllers
         }
 
         [HttpOptions]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult GetTicketsOptions()
         {
             Response.Headers.Add("Allow", "GET,POST,PATCH,OPTIONS");
