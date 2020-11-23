@@ -1,14 +1,12 @@
 using System;
-using FSight.Core.Enums;
 
-namespace FSight.API.Dtos
+namespace FSight.API.Dtos.User
 {
-    public class DeveloperDto
+    public class CustomerDto
     {
         public Guid Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
-        public string EmployeeNumber { get; set; }
     }
 }

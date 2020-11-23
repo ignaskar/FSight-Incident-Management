@@ -3,6 +3,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using FSight.API.Dtos;
+using FSight.API.Dtos.Identity;
 using FSight.API.Errors;
 using FSight.Core.Entities.Identity;
 using FSight.Core.Interfaces;

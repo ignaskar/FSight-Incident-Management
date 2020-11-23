@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
-using FSight.Core.Enums;
+using FSight.API.Dtos.Comment;
+using FSight.API.Dtos.User;
 
-namespace FSight.API.Dtos
+namespace FSight.API.Dtos.Ticket
 {
     public class TicketDto
     {

@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
+using FSight.API.Dtos.Comment;
 
-namespace FSight.API.Dtos
+namespace FSight.API.Dtos.Ticket
 {
     public class TicketForCreationDto : TicketForManipulationDto
     {

@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Runtime;
+using FSight.API.Dtos.Comment;
 using FSight.API.ValidationAttributes;
 
-namespace FSight.API.Dtos
+namespace FSight.API.Dtos.Ticket
 {
     [TicketTitleMustBeDifferentFromDescription(ErrorMessage = 
         "Title must be different from description!")]

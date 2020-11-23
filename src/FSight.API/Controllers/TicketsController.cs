@@ -4,6 +4,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using FSight.API.Dtos;
+using FSight.API.Dtos.Ticket;
 using FSight.API.Errors;
 using FSight.API.Helpers;
 using FSight.Core.Entities;
@@ -12,12 +13,14 @@ using FSight.Core.Specifications;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.JsonPatch.Operations;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FSight.API.Controllers
 {
     [ApiController]
     [Route("api/v1/[controller]")]
+    [Authorize]
     public class TicketsController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -89,8 +92,7 @@ namespace FSight.API.Controllers
         }
 
         [HttpPatch("{ticketId}")]
-        [Authorize(Roles = "Developer")]
-        public async Task<ActionResult> PartiallyUpdateTicket(int ticketId,
+        public async Task<IActionResult> PartiallyUpdateTicket(int ticketId,
             JsonPatchDocument<TicketForUpdateDto> patchDocument)
         {
             var spec = new TicketsWithCommentsAndDevelopersSpecification(ticketId);
@@ -105,6 +107,7 @@ namespace FSight.API.Controllers
 
             var ticketToPatch = _mapper.Map<TicketForUpdateDto>(ticket);
             
+            
             patchDocument.ApplyTo(ticketToPatch, ModelState);
 
             if (!TryValidateModel(ticketToPatch))
@@ -118,6 +121,13 @@ namespace FSight.API.Controllers
             await _unitOfWork.Complete();
 
             return NoContent();
+        }
+
+        [HttpOptions]
+        public IActionResult GetTicketsOptions()
+        {
+            Response.Headers.Add("Allow", "GET,POST,PATCH,OPTIONS");
+            return Ok(new ApiResponse(200));
         }
     }
 }

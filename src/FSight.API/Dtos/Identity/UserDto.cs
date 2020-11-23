@@ -1,6 +1,6 @@
 using System;
 
-namespace FSight.API.Dtos
+namespace FSight.API.Dtos.Identity
 {
     public class UserDto
     {

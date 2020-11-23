@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using FSight.API.Dtos;
+using FSight.API.Dtos.Ticket;
 
 namespace FSight.API.ValidationAttributes
 {
