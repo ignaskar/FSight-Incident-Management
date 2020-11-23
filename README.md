@@ -84,3 +84,6 @@ For example, if you are on a mac, You can ```cd``` into ```~/.microsoft/usersecr
 }
 ```
 Once the above is done, you can now run ```dotnet build``` to build the project and ```dotnet run``` to run it.
+
+## License
+ignaskar/FSight-Incident-Management is licensed under the **MIT License**.
