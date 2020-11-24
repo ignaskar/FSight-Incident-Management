@@ -74,7 +74,7 @@ namespace FSight.API.Controllers
 
             if (!result.Succeeded)
             {
-                return UnprocessableEntity();
+                return BadRequest(new ApiResponse(400));
             }
 
             await _userManager.AddToRoleAsync(user, "Customer");
