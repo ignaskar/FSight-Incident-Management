@@ -19,7 +19,7 @@ At this moment the list of features are (all endpoints require users to be autho
 * **OPTIONS** and **HEAD** supported as well.
 
 ### /api/v1/account
-* **POST** to **/register** requires a following JSON format (if validation fails, **Status 400** will be returned):
+* **POST** to **/register** requires a following JSON format:
 ```
 {
     "firstName": string,
