@@ -19,7 +19,7 @@ At this moment the list of features are (all endpoints require users to be autho
 * **OPTIONS** and **HEAD** supported as well.
 
 ### /api/v1/account
-* **POST** to **/register** requires a following JSON format (if validation fails, **Status 422** will be returned):
+* **POST** to **/register** requires a following JSON format (if validation fails, **Status 400** will be returned):
 ```
 {
     "firstName": string,
@@ -84,3 +84,6 @@ For example, if you are on a mac, You can ```cd``` into ```~/.microsoft/usersecr
 }
 ```
 Once the above is done, you can now run ```dotnet build``` to build the project and ```dotnet run``` to run it.
+
+## License
+ignaskar/FSight-Incident-Management is licensed under the **MIT License**.
