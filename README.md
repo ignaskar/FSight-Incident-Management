@@ -43,6 +43,7 @@ You can always check a more in-depth API documentation on **Swagger** (https://l
 - :white_check_mark: Authentication and Authorization with JWT
 - :white_check_mark: Tickets Controller
 - :white_check_mark: Projects Controller
+- MediatR implementation
 - Unit and Integration Tests
 - Angular Client
 
