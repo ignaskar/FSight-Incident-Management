@@ -19,7 +19,7 @@ At this moment the list of features are (all endpoints require users to be autho
 * **OPTIONS** and **HEAD** supported as well.
 
 ### /api/v1/account
-* **POST** to **/register** requires a following JSON format (if validation fails, **Status 400** will be returned):
+* **POST** to **/register** requires a following JSON format:
 ```
 {
     "firstName": string,
@@ -43,6 +43,7 @@ You can always check a more in-depth API documentation on **Swagger** (https://l
 - :white_check_mark: Authentication and Authorization with JWT
 - :white_check_mark: Tickets Controller
 - :white_check_mark: Projects Controller
+- Unit and Integration Tests
 - Angular Client
 
 ## Installation
