@@ -10,6 +10,7 @@ namespace FSight.API.Profiles
         public UsersProfile()
         {
             CreateMap<AppUser, GenericUserDto>();
+            CreateMap<AppUser, DeveloperDto>();
             CreateMap<GenericUserDto, AppUser>();
         }
     }
