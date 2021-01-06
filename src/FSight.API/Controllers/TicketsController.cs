@@ -6,9 +6,13 @@ using AutoMapper;
 using FSight.API.Dtos.Ticket;
 using FSight.API.Errors;
 using FSight.API.Helpers;
+using FSight.API.Mediation.Commands.TicketCommands;
+using FSight.API.Mediation.Queries;
+using FSight.API.Mediation.Queries.TicketQueries;
 using FSight.Core.Entities;
 using FSight.Core.Interfaces;
 using FSight.Core.Specifications;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
@@ -21,13 +25,11 @@ namespace FSight.API.Controllers
     [Authorize]
     public class TicketsController : ControllerBase
     {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
+        private readonly IMediator _mediator;
 
-        public TicketsController(IUnitOfWork unitOfWork, IMapper mapper)
+        public TicketsController(IMediator mediator)
         {
-            _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
-            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
         [HttpGet]
@@ -36,116 +38,52 @@ namespace FSight.API.Controllers
         public async Task<ActionResult<Pagination<TicketDto>>> GetAllTickets(
             [FromQuery] TicketSpecParams parameters)
         {
-            var spec = new TicketsWithCommentsAndDevelopersSpecification(parameters);
-            
-            var countSpec = new TicketWithFiltersForCountSpecification(parameters);
-            
-            var tickets = await _unitOfWork.Repository<Ticket>().ListAsync(spec);
-
-            var totalItems = await _unitOfWork.Repository<Ticket>().CountAsync(countSpec);
-            
-            var data = _mapper.Map<IReadOnlyList<Ticket>, IReadOnlyList<TicketDto>>(tickets);
-
-            return Ok(new Pagination<TicketDto>(parameters.PageIndex, parameters.PageSize, totalItems, data));
+            var query = new GetAllTicketsQuery(parameters);
+            var result = await _mediator.Send(query);
+            return Ok(result);
         }
 
-        [HttpGet("{ticketId}", Name = "GetTicket")]
+        [HttpGet("{ticketId:int}", Name = "GetTicket")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(TicketDto), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<TicketDto>> GetSingleTicket(int ticketId)
         {
-            var spec = new TicketsWithCommentsAndDevelopersSpecification(ticketId);
-
-            var ticket = await _unitOfWork.Repository<Ticket>().GetEntityWithSpecification(spec);
-
-            if (ticket == null)
-            {
-                return NotFound(new ApiResponse(404));
-            }
-
-            return Ok(_mapper.Map<Ticket, TicketDto>(ticket));
+            var query = new GetTicketByIdQuery(ticketId);
+            var result = await _mediator.Send(query);
+            return result == null
+                ? NotFound(new ApiResponse(404, "Requested ticket was not found."))
+                : Ok(result);
         }
 
         [HttpPost]
         [Authorize(Roles = "Customer")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(TicketDto),StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<TicketDto>> CreateTicket(TicketForCreationDto ticket)
+        public async Task<ActionResult<TicketDto>> CreateTicket(CreateTicketCommand command)
         {
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
-            if (string.IsNullOrEmpty(userId))
-            {
-                return BadRequest(new ApiResponse(400, $"Unknown error while finding user. Please try again."));
-            }
-            
-            ticket.CreatedBy = Guid.Parse(userId);
-            ticket.UpdatedBy = Guid.Parse(userId);
-
-            var ticketEntity = _mapper.Map<Ticket>(ticket);
-             _unitOfWork.Repository<Ticket>().Add(ticketEntity);
-            
-             try
-             {
-                 await _unitOfWork.Complete();
-             }
-             catch (Exception ex)
-             {
-                 return new ObjectResult(new ApiException(500, ex.Message)); 
-             }
-            
-             var ticketToReturn = _mapper.Map<TicketDto>(ticketEntity);
-             return CreatedAtRoute("GetTicket", new {ticketId = ticketToReturn.Id}, ticketToReturn);
+            var result = await _mediator.Send(command);
+            return CreatedAtRoute("GetTicket", new {ticketId = result.Id}, result);
         }
 
-        [HttpPatch("{ticketId}")]
+        [HttpPatch("{ticketId:int}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(TicketForUpdateDto), StatusCodes.Status422UnprocessableEntity)]
         public async Task<IActionResult> PartiallyUpdateTicket(int ticketId,
             JsonPatchDocument<TicketForUpdateDto> patchDocument)
         {
-            var spec = new TicketsWithCommentsAndDevelopersSpecification(ticketId);
-
-            var ticket = await _unitOfWork.Repository<Ticket>().GetEntityWithSpecification(spec);
-
-            if (ticket == null)
-            {
-                _unitOfWork.Dispose();
-                return NotFound(new ApiResponse(404));
-            }
-
-            var ticketToPatch = _mapper.Map<TicketForUpdateDto>(ticket);
-            
-            
-            patchDocument.ApplyTo(ticketToPatch, ModelState);
-
-            if (!TryValidateModel(ticketToPatch))
-            {
-                return ValidationProblem(ModelState);
-            }
-
-            var updatedTicket = _mapper.Map(ticketToPatch, ticket);
-
-            try
-            {
-                _unitOfWork.Repository<Ticket>().Update(updatedTicket);
-                await _unitOfWork.Complete();
-            }
-            catch (Exception ex)
-            {
-                return new ObjectResult(new ApiException(500, ex.Message));
-            }
-
-            return NoContent();
+            var command = new PartiallyUpdateTicketCommand(ticketId, this, patchDocument);
+            var result = await _mediator.Send(command);
+            return result;
         }
 
         [HttpOptions]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public IActionResult GetTicketsOptions()
+        public async Task<IActionResult> GetTicketsOptions()
         {
-            Response.Headers.Add("Allow", "GET,POST,PATCH,HEAD,OPTIONS");
-            return Ok(new ApiResponse(200));
+            var query = new GetTicketsOptionsQuery(this);
+            var result = await _mediator.Send(query);
+            return result;
         }
     }
 }
