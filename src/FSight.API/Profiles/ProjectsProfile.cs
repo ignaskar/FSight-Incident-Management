@@ -1,5 +1,6 @@
 using AutoMapper;
 using FSight.API.Dtos.Project;
+using FSight.API.Mediation.Commands.ProjectCommands;
 using FSight.Core.Entities;
 
 namespace FSight.API.Profiles
@@ -9,7 +10,7 @@ namespace FSight.API.Profiles
         public ProjectsProfile()
         {
             CreateMap<Project, ProjectDto>();
-            CreateMap<ProjectForCreationDto, Project>();
+            CreateMap<CreateProjectCommand, Project>();
             CreateMap<ProjectForUpdateDto, Project>();
             CreateMap<Project, ProjectForUpdateDto>();
         }

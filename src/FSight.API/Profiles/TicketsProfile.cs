@@ -2,6 +2,7 @@ using System;
 using AutoMapper;
 using FSight.API.Dtos;
 using FSight.API.Dtos.Ticket;
+using FSight.API.Mediation.Commands.TicketCommands;
 using FSight.Core.Entities;
 
 namespace FSight.API.Profiles
@@ -11,7 +12,7 @@ namespace FSight.API.Profiles
         public TicketsProfile()
         {
             CreateMap<Ticket, TicketDto>();
-            CreateMap<TicketForCreationDto, Ticket>();
+            CreateMap<CreateTicketCommand, Ticket>();
             CreateMap<TicketForUpdateDto, Ticket>();
             CreateMap<Ticket, TicketForUpdateDto>();
         }

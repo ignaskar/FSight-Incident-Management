@@ -2,9 +2,11 @@ using System;
 using System.Linq;
 using AutoMapper;
 using FSight.API.Errors;
+using FSight.API.Helpers;
 using FSight.Core.Interfaces;
 using FSight.Infrastructure.Data;
 using FSight.Infrastructure.Services;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -14,10 +16,13 @@ namespace FSight.API.Extensions
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
+            services.AddScoped<IUserAccessor, UserAccessor>();
+            services.AddScoped<IHttpResponseAccessor, HttpResponseAccessor>();
             services.AddScoped<ITokenService, TokenService>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddMediatR(typeof(Startup));
             
             services.Configure<ApiBehaviorOptions>(o =>
             {
