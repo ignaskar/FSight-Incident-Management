@@ -19,17 +19,10 @@ namespace FSight.API.Controllers
     [Route("api/v1/[controller]")]
     public class AccountController : ControllerBase
     {
-        private readonly UserManager<AppUser> _userManager;
-        private readonly SignInManager<AppUser> _signInManager;
-        private readonly ITokenService _tokenService;
         private readonly IMediator _mediator;
 
-        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager,
-            ITokenService tokenService, IMediator mediator)
+        public AccountController(IMediator mediator)
         {
-            _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
-            _signInManager = signInManager ?? throw new ArgumentNullException(nameof(signInManager));
-            _tokenService = tokenService ?? throw new ArgumentNullException(nameof(tokenService));
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
         
