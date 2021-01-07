@@ -1,16 +1,8 @@
 using System;
-using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
-using FSight.API.Dtos;
 using FSight.API.Dtos.Identity;
-using FSight.API.Errors;
 using FSight.API.Mediation.Commands.AccountCommands;
-using FSight.Core.Entities.Identity;
-using FSight.Core.Interfaces;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FSight.API.Controllers
