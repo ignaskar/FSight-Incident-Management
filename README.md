@@ -43,7 +43,7 @@ You can always check a more in-depth API documentation on **Swagger** (https://l
 - :white_check_mark: Authentication and Authorization with JWT
 - :white_check_mark: Tickets Controller
 - :white_check_mark: Projects Controller
-- MediatR implementation
+- :white_check_mark: MediatR implementation
 - Unit and Integration Tests
 - Angular Client
 
@@ -57,7 +57,8 @@ dotnet restore
 
 ## Usage
 
-fSight requires some configuration before using it. fSight is configured by default to use SqlServer. If you are on Windows, you can download SQL Server 2019 Express with SSMS [here](https://www.microsoft.com/en-us/sql-server/sql-server-downloads). For macOS users, I recommend using Docker with latest MSSQL image from [here](https://hub.docker.com/_/microsoft-mssql-server). Please follow instructions laid out on Docker Hub on how to setup MSSQL image.
+```docker-compose.yaml``` is now added to simplify deployment.
+Just ```cd``` into project directory and run ```docker-compose up -d``` to create SQL docker container. Afterwards, proceed with further configuration.
 
 I am utilizing ```dotnet user-secrets``` to store my SQL Connection String as well as JWT-related info.  
 
