@@ -1,16 +1,10 @@
 using System;
-using System.Collections.Generic;
-using System.Security.Claims;
 using System.Threading.Tasks;
-using AutoMapper;
 using FSight.API.Dtos.Ticket;
 using FSight.API.Errors;
 using FSight.API.Helpers;
 using FSight.API.Mediation.Commands.TicketCommands;
-using FSight.API.Mediation.Queries;
 using FSight.API.Mediation.Queries.TicketQueries;
-using FSight.Core.Entities;
-using FSight.Core.Interfaces;
 using FSight.Core.Specifications;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
