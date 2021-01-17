@@ -44,8 +44,9 @@ You can always check a more in-depth API documentation on **Swagger** (https://l
 - :white_check_mark: Tickets Controller
 - :white_check_mark: Projects Controller
 - :white_check_mark: MediatR implementation
+- Webhooks
 - Unit and Integration Tests
-- Angular Client
+- :arrow_right: Angular Client
 
 ## Installation
 
