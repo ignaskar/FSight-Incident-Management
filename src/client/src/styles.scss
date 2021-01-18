@@ -58,7 +58,7 @@ $client-warn: mat-palette($mat-red);
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
-$client-theme: mat-dark-theme($client-primary, $client-accent, $client-warn);
+$client-theme: mat-light-theme($client-primary, $client-accent, $client-warn);
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
