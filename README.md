@@ -46,7 +46,7 @@ You can always check a more in-depth API documentation on **Swagger** (https://l
 - :white_check_mark: MediatR implementation
 - Webhooks
 - Unit and Integration Tests
-- :arrow_right: Angular Client
+- :building_construction: Angular Client
 
 ## Installation
 
