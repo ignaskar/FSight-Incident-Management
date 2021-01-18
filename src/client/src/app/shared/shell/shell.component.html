@@ -19,7 +19,7 @@
 
     <!-- TOP TOOLBAR -->
 
-    <mat-toolbar color="primary">
+    <mat-toolbar>
       <button
         type="button"
         aria-label="Toggle sidenav"
@@ -33,8 +33,8 @@
       <span class="fill-space"></span>
       <div *ngIf="!(isHandset$ | async)">
         <a mat-button routerLink="/login">🔑 Login</a>
-        <a mat-button routerLink="/">⚡ Incidents</a>
-        <a mat-button routerLink="/">📚 Projects</a>
+        <a mat-button routerLink="/incidents">⚡ Incidents</a>
+        <a mat-button routerLink="/projects">📚 Projects</a>
       </div>
 
       <!-- DROPDOWN -->

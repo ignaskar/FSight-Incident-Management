@@ -5,6 +5,9 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { AuthService } from '../auth.service';
+import {first} from 'rxjs/operators';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-email-login',
@@ -16,14 +19,14 @@ export class EmailLoginComponent implements OnInit {
   type: 'login' | 'signup' | 'reset' = 'signup';
   loading = false;
 
-  serverMessages: string[];
+  serverMessage: string;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private as: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      firstName: ['', [Validators.required]],
-      lastName: ['', [Validators.required]],
+      firstName: ['', []],
+      lastName: ['', []],
       email: ['', [Validators.required, Validators.email]],
       password: [
         '',
@@ -72,11 +75,35 @@ export class EmailLoginComponent implements OnInit {
     if (this.type !== 'signup') {
       return true;
     } else {
-      return this.password?.value === this.passwordConfirm?.value;
+      return this.password.value === this.passwordConfirm.value;
     }
   }
 
   async onSubmit(): Promise<void> {
     this.loading = true;
+
+    const firstName = this.firstName.value;
+    const lastName = this.lastName.value;
+    const email = this.email.value;
+    const password = this.password.value;
+
+    if (this.isLogin) {
+      this.as.login(email, password).subscribe(() => {
+        this.router.navigateByUrl('/login');
+        this.serverMessage = '';
+      }, err => {
+        this.serverMessage = err.error.message;
+      });
+    }
+
+    if (this.isSignup) {
+      this.as.register(firstName, lastName, email, password).subscribe(() => {
+        this.router.navigateByUrl('/login');
+      }, err => {
+        this.serverMessage = err.error.errors[0];
+      });
+    }
+
+    this.loading = false;
   }
 }

@@ -23,6 +23,16 @@ namespace FSight.API.Extensions
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddMediatR(typeof(Startup));
+
+            services.AddCors(o =>
+            {
+                o.AddPolicy("EnableCORS", builder =>
+                {
+                    builder.AllowAnyOrigin()
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
+            });
             
             services.Configure<ApiBehaviorOptions>(o =>
             {

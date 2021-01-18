@@ -20,7 +20,7 @@
   </div>
 
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <mat-form-field [color]="firstName.valid && 'accent'" *ngIf="isSignup">
+    <mat-form-field color="accent" *ngIf="isSignup">
       <input
         matInput
         formControlName="firstName"
@@ -34,7 +34,7 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field [color]="lastName.valid && 'accent'" *ngIf="isSignup">
+    <mat-form-field color="accent" *ngIf="isSignup">
       <input
         matInput
         formControlName="lastName"
@@ -76,7 +76,7 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field [color]="passwordDoesMatch ? 'primary' : 'warn'" *ngIf="isSignup">
+    <mat-form-field [color]="passwordDoesMatch ? 'accent' : 'warn'" *ngIf="isSignup">
       <input
         matInput
         formControlName="passwordConfirm"
@@ -90,7 +90,7 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-error class="server-error">{{ serverMessages }}</mat-error>
+    <mat-error class="server-error">{{ serverMessage }}</mat-error>
 
     <button
       *ngIf="isPasswordReset"
