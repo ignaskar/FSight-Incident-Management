@@ -50,7 +50,7 @@ $custom-orange: (
 );
 
 
-$client-primary: mat-palette($custom-orange);
+$client-primary: mat-palette($mat-indigo);
 $client-accent: mat-palette($mat-pink, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
