@@ -51,20 +51,14 @@ $custom-orange: (
 
 
 $client-primary: mat-palette($custom-orange);
-$client-accent: mat-palette($mat-pink, A200, A100, A400);
+$client-accent: mat-palette($mat-green, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
 $client-warn: mat-palette($mat-red);
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
-$client-theme: mat-light-theme((
-  color: (
-    primary: $client-primary,
-    accent: $client-accent,
-    warn: $client-warn,
-  )
-));
+$client-theme: mat-light-theme($client-primary, $client-accent, $client-warn);
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component

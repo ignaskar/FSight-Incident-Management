@@ -35,8 +35,8 @@ const modules = [
 ];
 
 @NgModule({
-  declarations: [...components, ShellComponent],
-  imports: [...modules, LayoutModule, MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule],
+  declarations: [...components],
+  imports: [...modules],
   exports: [
     ...components,
     ...modules,

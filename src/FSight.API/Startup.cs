@@ -51,6 +51,8 @@ namespace FSight.API
             app.UseMiddleware<ExceptionMiddleware>();
             app.UseStatusCodePagesWithReExecute("/errors/{0}");
 
+            app.UseCors("EnableCORS");
+            
             app.UseSwaggerDocumentation();
 
             app.UseHttpsRedirection();
