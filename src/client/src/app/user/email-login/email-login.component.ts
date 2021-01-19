@@ -6,7 +6,6 @@ import {
   Validators,
 } from '@angular/forms';
 import { AuthService } from '../auth.service';
-import {first} from 'rxjs/operators';
 import {Router} from '@angular/router';
 
 @Component({
@@ -20,13 +19,14 @@ export class EmailLoginComponent implements OnInit {
   loading = false;
 
   serverMessage: string;
+  validationErrors: string[];
 
   constructor(private fb: FormBuilder, private as: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      firstName: ['', []],
-      lastName: ['', []],
+      firstName: ['', [Validators.required]],
+      lastName: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: [
         '',
@@ -38,6 +38,17 @@ export class EmailLoginComponent implements OnInit {
 
   changeType(val: 'login' | 'signup' | 'reset'): void {
     this.type = val;
+
+    if (this.type === 'signup') {
+      this.firstName.setValidators([Validators.required]);
+      this.lastName.setValidators([Validators.required]);
+    } else {
+      this.firstName.setValidators(null);
+      this.lastName.setValidators(null);
+    }
+
+    this.firstName.updateValueAndValidity();
+    this.lastName.updateValueAndValidity();
   }
 
   get isLogin(): boolean {
@@ -79,6 +90,14 @@ export class EmailLoginComponent implements OnInit {
     }
   }
 
+  get fullNameEntered(): boolean {
+    if (this.type !== 'signup') {
+      return true;
+    } else {
+      return this.firstName.value !== '' && this.lastName.value !== '';
+    }
+  }
+
   async onSubmit(): Promise<void> {
     this.loading = true;
 
@@ -100,7 +119,7 @@ export class EmailLoginComponent implements OnInit {
       this.as.register(firstName, lastName, email, password).subscribe(() => {
         this.router.navigateByUrl('/login');
       }, err => {
-        this.serverMessage = err.error.errors[0];
+        this.validationErrors = err.error.errors;
       });
     }
 
