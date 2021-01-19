@@ -118,6 +118,7 @@ export class EmailLoginComponent implements OnInit {
     if (this.isSignup) {
       this.as.register(firstName, lastName, email, password).subscribe(() => {
         this.router.navigateByUrl('/login');
+        this.validationErrors = [];
       }, err => {
         this.validationErrors = err.error.errors;
       });
