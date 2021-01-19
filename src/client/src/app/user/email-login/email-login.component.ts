@@ -98,7 +98,7 @@ export class EmailLoginComponent implements OnInit {
     }
   }
 
-  async onSubmit(): Promise<void> {
+  onSubmit(): void {
     this.loading = true;
 
     const firstName = this.firstName.value;
