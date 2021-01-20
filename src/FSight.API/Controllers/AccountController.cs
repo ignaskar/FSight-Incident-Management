@@ -26,7 +26,7 @@ namespace FSight.API.Controllers
         {
             var query = new GetCurrentUserQuery(this);
             var result = await _mediator.Send(query);
-            return Ok(result);
+            return result;
         }
         
         [HttpPost("register")]
@@ -41,6 +41,14 @@ namespace FSight.API.Controllers
         public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
         {
             var command = new LoginCommand(loginDto, this);
+            var result = await _mediator.Send(command);
+            return result;
+        }
+
+        [HttpPost("google-signin")]
+        public async Task<ActionResult<UserDto>> GoogleLogin(GoogleUserDto loginDto)
+        {
+            var command = new GoogleLoginCommand(loginDto, this);
             var result = await _mediator.Send(command);
             return result;
         }

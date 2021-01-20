@@ -32,6 +32,11 @@ namespace FSight.API.Extensions
                         // CHANGE WHEN CLIENT IS DEVELOPED
                         ValidateAudience = false
                     };
+                })
+                .AddGoogle(o =>
+                {
+                    o.ClientId = config["Authentication:Google:ClientId"];
+                    o.ClientSecret = config["Authentication:Google:ClientSecret"];
                 });
 
             return services;

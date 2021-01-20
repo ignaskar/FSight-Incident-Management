@@ -1,0 +1,8 @@
+<button mat-stroked-button (click)="signInWithGoogle()">
+  <span *ngIf="isLogging">
+    Authenticating...
+  </span>
+  <span *ngIf="!isLogging">
+    Login With Google
+  </span>
+</button>

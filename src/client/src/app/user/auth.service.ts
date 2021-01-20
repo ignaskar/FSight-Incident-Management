@@ -5,6 +5,7 @@ import {BehaviorSubject, Observable, of, ReplaySubject} from 'rxjs';
 import { IUser } from '../shared/models/user';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import {SocialUser} from 'angularx-social-login';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,16 @@ export class AuthService {
             localStorage.setItem('token', user.token);
             this.currentUserSource.next(user);
           }
+        })
+      );
+  }
+
+  googleLogin(googleUser: SocialUser): Observable<void> {
+    return this.http.post(this.baseUrl + 'account/google-signin', googleUser)
+      .pipe(
+        map((user: IUser) => {
+          localStorage.setItem('token', user.token);
+          this.currentUserSource.next(user);
         })
       );
   }
