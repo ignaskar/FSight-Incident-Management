@@ -112,6 +112,7 @@ export class EmailLoginComponent implements OnInit {
         this.serverMessage = '';
       }, err => {
         this.serverMessage = err.error.message;
+        this.validationErrors = [];
       });
     }
 
@@ -120,6 +121,7 @@ export class EmailLoginComponent implements OnInit {
         this.router.navigateByUrl('/login');
         this.validationErrors = [];
       }, err => {
+        this.serverMessage = '';
         this.validationErrors = err.error.errors;
       });
     }

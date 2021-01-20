@@ -1,6 +1,10 @@
 <div *ngIf="!(currentUser$ | async)">
   <h1>Login</h1>
 
+  <app-google-login></app-google-login>
+
+  <h5>OR</h5>
+
   <app-email-login></app-email-login>
 </div>
 
