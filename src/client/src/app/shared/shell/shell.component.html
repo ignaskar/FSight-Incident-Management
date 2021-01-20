@@ -10,9 +10,9 @@
     <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list>
       <a mat-list-item routerLink="/" (click)="drawer.close()">🏠 Home</a>
-      <a mat-list-item routerLink="/incidents" (click)="drawer.close()">⚡ Incidents</a>
+      <a mat-list-item routerLink="/incidents" (click)="drawer.close()">⚠️ Incidents</a>
       <a mat-list-item routerLink="/projects" (click)="drawer.close()">📚 Projects</a>
-      <a mat-list-item routerLink="/login" (click)="drawer.close()">🔑 Login</a>
+      <a mat-list-item routerLink="/account/login" (click)="drawer.close()">🔑 Login</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -32,8 +32,8 @@
       <span class="logo" routerLink="/">📡 fSight Incident Management</span>
       <span class="fill-space"></span>
       <div *ngIf="!(isHandset$ | async)">
-        <a mat-button routerLink="/login">🔑 Login</a>
-        <a mat-button routerLink="/incidents">⚡ Incidents</a>
+        <a mat-button routerLink="/account/login">🔑 Login</a>
+        <a mat-button routerLink="/incidents">⚠️ Incidents</a>
         <a mat-button routerLink="/projects">📚 Projects</a>
       </div>
 

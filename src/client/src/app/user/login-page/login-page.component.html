@@ -9,9 +9,22 @@
 </div>
 
 <div *ngIf="currentUser$ | async as user">
-  <p>
-    Logged in as <strong>{{ user.email }}</strong>
-  </p>
+  <mat-card>
+    <mat-card-title>
+      <p>
+        Logged in as <strong>{{ user.email }}</strong>
+      </p>
+    </mat-card-title>
 
-  <button mat-stroked-button (click)="logout()">Logout</button>
+    <mat-card-content>
+      <p>
+        Your access token is: <br/>
+        <strong>{{ user.token }}</strong>
+      </p>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button mat-stroked-button (click)="logout()">Logout</button>
+    </mat-card-actions>
+  </mat-card>
 </div>

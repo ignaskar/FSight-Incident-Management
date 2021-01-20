@@ -1,13 +1,24 @@
-button {
-  img {
-    width: 1.25em;
-  }
-}
-
 :host {
   text-align: center;
 }
 
 .logout {
   padding-top: 5em;
+}
+
+
+mat-card {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+  margin: 0 auto;
+  -ms-word-break: break-all;
+  word-break: break-all;
+
+  /* Non standard for WebKit */
+  word-break: break-word;
+
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto;
 }

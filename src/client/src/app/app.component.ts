@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
     this.as.loadCurrentUser(token).subscribe(() => {
       console.log('Loaded user.');
     }, err => {
-      console.log(err);
+      localStorage.removeItem('token');
     });
   }
 }

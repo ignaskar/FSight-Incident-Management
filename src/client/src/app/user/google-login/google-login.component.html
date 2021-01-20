@@ -2,7 +2,7 @@
   <span *ngIf="isLogging">
     Authenticating...
   </span>
-  <span *ngIf="!isLogging">
-    Login With Google
-  </span>
+  <div *ngIf="!isLogging">
+    <img src="/assets/google-logo.svg" *ngIf="!isLogging"> Login with Google
+  </div>
 </button>
