@@ -19,7 +19,22 @@ export class SnackService {
       .onAction()
       .pipe(
         tap(_ =>
-          this.router.navigate(['/login'])
+          this.router.navigate(['account/login'])
+        )
+      )
+      .subscribe();
+  }
+
+  roleError(): Subscription {
+    this.snackBar.open('You are not an admin!', 'OK', {
+      duration: 5000
+    });
+
+    return this.snackBar._openedSnackBarRef
+      .onAction()
+      .pipe(
+        tap(_ =>
+          this.snackBar.dismiss()
         )
       )
       .subscribe();
