@@ -108,7 +108,7 @@ export class EmailLoginComponent implements OnInit {
 
     if (this.isLogin) {
       this.as.login(email, password).subscribe(() => {
-        this.router.navigateByUrl('/login');
+        this.router.navigateByUrl('/account/login');
         this.serverMessage = '';
       }, err => {
         this.serverMessage = err.error.message;
@@ -118,7 +118,7 @@ export class EmailLoginComponent implements OnInit {
 
     if (this.isSignup) {
       this.as.register(firstName, lastName, email, password).subscribe(() => {
-        this.router.navigateByUrl('/login');
+        this.router.navigateByUrl('/account/login');
         this.validationErrors = [];
       }, err => {
         this.serverMessage = '';
